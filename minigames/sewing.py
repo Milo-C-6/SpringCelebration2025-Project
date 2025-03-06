@@ -35,11 +35,11 @@ class MgSewing(Minigame):
         pr.draw_line(int(self.screen_width//2.45),int(self.stich_line_y),int(self.screen_width//2.45),int(self.screen_height//3.5),pr.BLACK)
 
     def update(self):
-        if pr.is_key_down(pr.KEY_UP):
-            self.y+=1
-            self.stich_line_y+=1
-            if self.stich_line_y >= self.screen_height*0.43: 
-                self.current_instruction = self.resources[ResourceType.TEXTURE_KEY_DOWN]
-        if pr.is_key_down(pr.KEY_DOWN):
+        if self.stich_line_y >= self.screen_height*0.64: 
+            self.current_instruction = self.resources[ResourceType.TEXTURE_KEY_DOWN]
+        if pr.is_key_down(pr.KEY_DOWN) and self.current_instruction == self.resources[ResourceType.TEXTURE_KEY_DOWN]:
             self.y-=1
             self.stich_line_y-=1
+        elif pr.is_key_down(pr.KEY_UP) and self.current_instruction == self.resources[ResourceType.TEXTURE_KEY_UP]:
+            self.y+=1
+            self.stich_line_y+=1
