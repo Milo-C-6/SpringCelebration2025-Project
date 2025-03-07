@@ -5,6 +5,7 @@ class Minigame:
         self.resources = resources
         self.screen_width = screen_width
         self.screen_height = screen_height
+        self.win = False
 
     def render():
         pass
