@@ -9,9 +9,10 @@ class MgSewing(Minigame):
         self.width = int(screen_height * 2)
         self.height = int(screen_height * 2)
         # Values for the sewing item, didn't really feel like putting it in its own class since there will likely only ever be one sewing item for the sewing minigame.
-        self.x = -500
-        self.y = -800
+        self.x = -490
+        self.y = -760
         self.stich_line_y = self.screen_width//3.5
+        self.stiches = 0
         self.current_instruction = self.resources[ResourceType.TEXTURE_KEY_UP]
 
     def render(self):
@@ -31,13 +32,12 @@ class MgSewing(Minigame):
             0,
             pr.WHITE
         )
-        #will probably improve \/
-        pr.draw_line(int(self.screen_width//2.45),int(self.stich_line_y),int(self.screen_width//2.45),int(self.screen_height//3.5),pr.BLACK)
+        pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.screen_width//2.8),int(self.screen_height//4.1)),self.screen_height*(6/720),pr.RED)
 
     def update(self):
         if self.stich_line_y >= self.screen_height*0.64: 
             self.current_instruction = self.resources[ResourceType.TEXTURE_KEY_DOWN]
-        if pr.is_key_down(pr.KEY_DOWN) and self.current_instruction == self.resources[ResourceType.TEXTURE_KEY_DOWN]:
+        if pr.is_key_pressed(pr.KEY_DOWN) and self.current_instruction == self.resources[ResourceType.TEXTURE_KEY_DOWN]:
             self.y-=1
             self.stich_line_y-=1
         elif pr.is_key_down(pr.KEY_UP) and self.current_instruction == self.resources[ResourceType.TEXTURE_KEY_UP]:

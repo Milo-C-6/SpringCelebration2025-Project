@@ -16,16 +16,14 @@ class Game:
     def startup(self):
         pr.init_audio_device()
 
-        #definitely should make a more efficient way to do this
-        image = pr.load_image("assets/Arrow_Up_Key_Light.png")
-        self.resources[ResourceType.TEXTURE_KEY_UP] = pr.load_texture_from_image(image)
-        pr.unload_image(image)
-        image = pr.load_image("assets/Arrow_Down_Key_Light.png")
-        self.resources[ResourceType.TEXTURE_KEY_DOWN] = pr.load_texture_from_image(image)
-        pr.unload_image(image)
-        image = pr.load_image("assets/Sewing-monster-doll.png")
-        self.resources[ResourceType.TEXTURE_SEW_DOLL] = pr.load_texture_from_image(image)
-        pr.unload_image(image)
+        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing-monster-doll.png"]
+        iteration = 0
+
+        for key in ResourceType:
+            image = pr.load_image(assets[iteration])
+            self.resources[key] = pr.load_texture_from_image(image)
+            pr.unload_image(image)
+            iteration+=1
 
         #Will likely be moved to the update loop for when an actual menu, and a transition is made
         if self.current_minigame == None:
