@@ -1,3 +1,11 @@
+Powerwash Gun: DLab5, Original asset
+Sewing Monster Doll: Milo-C-6, Original Asset
+
 all keyboard related images: Nicolae (XELU) Berbece, Public Domain CC0. Source: https://thoseawesomeguys.com/prompts/
 
-Starburst_Explosion : License: http://www.onlygfx.com/terms-of-use/ Source: https://www.onlygfx.com/6-starburst-explosion-comic-vector-png-transparent-svg/
+Starburst_Explosion, Splat_Stripe, Splat_Coffee: License: http://www.onlygfx.com/terms-of-use/ Source: https://www.onlygfx.com/6-starburst-explosion-comic-vector-png-transparent-svg/,
+https://www.onlygfx.com/hard-splatter-stripe-background-png-transparent/, https://www.onlygfx.com/4-coffee-splash-splatter-png-transparent/
+
+Sidewalk by Calinou licensed Public Domain CC0: https://opengameart.org/content/seamless-terrain-and-concrete-textures
+
+Splat_1, Splat_2 by johndh licensed CC-BY 3.0: https://opengameart.org/content/splatter-pack

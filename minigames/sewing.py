@@ -19,7 +19,6 @@ class MgSewing(Minigame):
         self.stich_tick = 29
         self.offset_tick = 16
         self.win_tick = 15
-        self.win = 0
         #everything else
         self.x = screen_height*(-490/720) # a lot of these should be vector2s but I already did so much so whoop
         self.y = screen_height*(-760/720)
