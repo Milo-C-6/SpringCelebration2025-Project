@@ -32,51 +32,6 @@ class MgSewing(Minigame):
         self.direction = 0 # 0: Right, 1: Left
         self.starburst_opacity = 0
 
-    def render(self):
-        if self.side == 1:
-            pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.RED)
-
-        if self.win:
-            pr.clear_background(pr.Color(255,191,0,self.starburst_opacity))
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION],
-                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].width,self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].height),
-                pr.Rectangle(self.x-self.screen_height/6,self.y-self.screen_height/6,self.width+self.screen_height/4,self.height+self.screen_height/4),
-                pr.Vector2(self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].width // 4, self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].height // 4),
-                0,
-                pr.Color(255,255,255,self.starburst_opacity)
-            )
-
-        pr.draw_texture_pro(
-            self.current_doll,
-            pr.Rectangle(0,0,self.current_doll.width,self.current_doll.height),
-            pr.Rectangle(self.x,self.y+self.offset_y,self.width,self.height),
-            pr.Vector2(self.current_doll.width // 4, self.current_doll.height // 4),
-            0,
-            pr.WHITE
-        )
-        if self.win:
-            return
-
-        pr.draw_texture_pro(
-            self.current_instruction, 
-            pr.Rectangle(0,0,self.current_instruction.width,self.current_instruction.height),
-            pr.Rectangle(int(self.screen_width//1.2),int(self.screen_height//5),self.screen_width//5.5,self.screen_width//5.5),
-            pr.Vector2(self.current_instruction.width // 4, self.current_instruction.height // 4),
-            0,
-            pr.WHITE
-        )
-        if self.side == 0:
-            pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.RED)
-
-        #these stupid stiches were such a pain to make
-        if self.stiches > 0:
-            for i in range(0,self.stiches,2):
-                start_y = self.screen_width//3.5+self.offset_y-i*48
-                end_y = self.screen_height//4.1+self.offset_y-i*48
-
-                pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(start_y)),pr.Vector2(int(self.screen_width//2.45),int(end_y)),self.screen_height*(6/720),pr.RED)
-
     def update(self):
         if self.stich_tick != 29:
             self.stich_tick+=1
@@ -113,7 +68,7 @@ class MgSewing(Minigame):
         if self.stiches==9:
             self.win = True
             self.win_tick = 0
-            self.resources[ResourceType.TEXTURE_SEW_DOLL_COMPLETE]
+            self.current_doll = self.resources[ResourceType.TEXTURE_SEW_DOLL_COMPLETE]
             self.side = 3 # stops the line from drawing(bro wont see it coming)
             self.width = self.screen_height / 2.5
             self.height = self.screen_height / 2.5
@@ -129,3 +84,48 @@ class MgSewing(Minigame):
             self.direction = 1
             self.stich_tick = 1
             self.current_instruction = self.resources[ResourceType.TEXTURE_KEY_RIGHT]
+
+    def render(self):
+        if self.side == 1:
+            pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.BLACK)
+
+        if self.win:
+            pr.clear_background(pr.Color(255,191,0,self.starburst_opacity))
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].width,self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].height),
+                pr.Rectangle(self.x-self.screen_height/6,self.y-self.screen_height/6,self.width+self.screen_height/4,self.height+self.screen_height/4),
+                pr.Vector2(self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].width // 4, self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].height // 4),
+                0,
+                pr.Color(255,255,255,self.starburst_opacity)
+            )
+
+        pr.draw_texture_pro(
+            self.current_doll,
+            pr.Rectangle(0,0,self.current_doll.width,self.current_doll.height),
+            pr.Rectangle(self.x,self.y+self.offset_y,self.width,self.height),
+            pr.Vector2(self.current_doll.width // 4, self.current_doll.height // 4),
+            0,
+            pr.WHITE
+        )
+        if self.win:
+            return
+
+        pr.draw_texture_pro(
+            self.current_instruction, 
+            pr.Rectangle(0,0,self.current_instruction.width,self.current_instruction.height),
+            pr.Rectangle(int(self.screen_width//1.2),int(self.screen_height//5),self.screen_width//5.5,self.screen_width//5.5),
+            pr.Vector2(self.current_instruction.width // 4, self.current_instruction.height // 4),
+            0,
+            pr.WHITE
+        )
+        if self.side == 0:
+            pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.BLACK)
+
+        #these stupid stiches were such a pain to make
+        if self.stiches > 0:
+            for i in range(0,self.stiches,2):
+                start_y = self.screen_width//3.5+self.offset_y-i*48
+                end_y = self.screen_height//4.1+self.offset_y-i*48
+
+                pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(start_y)),pr.Vector2(int(self.screen_width//2.45),int(end_y)),self.screen_height*(6/720),pr.BLACK)

@@ -10,6 +10,48 @@ class MgPowerwash(Minigame):
         self.sparkle_rectangle = pr.Rectangle(0,0,480,480)
         self.sparkle_tick = 29
 
+    def update(self):
+        if pr.is_mouse_button_down(0):
+            mouse_pos = pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-10,-10))
+
+            for splat in self.splats:
+                collide = pr.check_collision_recs(
+                    pr.Rectangle(
+                        mouse_pos.x,
+                        mouse_pos.y,
+                        30,
+                        30
+                    ),
+                    pr.Rectangle(
+                        splat.position.x,
+                        splat.position.y,
+                        self.resources[splat.texture].width*splat.size,
+                        self.resources[splat.texture].height*splat.size
+                    )
+                )
+                if collide: 
+                    splat.alpha -=0.05
+                    splat.color = pr.color_alpha(splat.color,splat.alpha)
+                    if splat.alpha <= 0:
+                        self.splats.remove(splat)
+        if self.sparkle_tick!=29:
+            offset_y = 0
+            if self.sparkle_tick>5: offset_y=480 #probably a way better way to do this, but i dont know!!!
+            if self.sparkle_tick>10: offset_y=960
+            if self.sparkle_tick>15: offset_y=1440
+            if self.sparkle_tick>20: offset_y=1920
+            if self.sparkle_tick>25: offset_y=2400
+            self.sparkle_rectangle = pr.Rectangle(
+                self.sparkle_tick%6*480,
+                offset_y,
+                480,480
+            )
+            self.sparkle_tick+=1
+            return
+        if len(self.splats)==0:
+            self.sparkle_tick = 0
+            self.win = True
+
     def render(self):
         pr.draw_texture_pro(
             self.resources[ResourceType.TEXTURE_SIDEWALK],
@@ -54,45 +96,3 @@ class MgPowerwash(Minigame):
                 0,
                 pr.WHITE
             )
-    def update(self):
-        if pr.is_mouse_button_down(0):
-            mouse_pos = pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-10,-10))
-
-            for splat in self.splats:
-                collide = pr.check_collision_recs(
-                    pr.Rectangle(
-                        mouse_pos.x,
-                        mouse_pos.y,
-                        30,
-                        30
-                    ),
-                    pr.Rectangle(
-                        splat.position.x,
-                        splat.position.y,
-                        self.resources[splat.texture].width*splat.size,
-                        self.resources[splat.texture].height*splat.size
-                    )
-                )
-                if collide: 
-                    splat.alpha -=0.05
-                    splat.color = pr.color_alpha(splat.color,splat.alpha)
-                    if splat.alpha <= 0:
-                        self.splats.remove(splat)
-        if self.sparkle_tick!=29:
-            offset_y = 0
-            if self.sparkle_tick>5: offset_y=480 #probably a way better way to do this, but i dont know!!!
-            if self.sparkle_tick>10: offset_y=960
-            if self.sparkle_tick>15: offset_y=1440
-            if self.sparkle_tick>20: offset_y=1920
-            if self.sparkle_tick>25: offset_y=2400
-            self.sparkle_rectangle = pr.Rectangle(
-                self.sparkle_tick%6*480,
-                offset_y,
-                480,480
-            )
-            self.sparkle_tick+=1
-            return
-        if len(self.splats)==0:
-            self.sparkle_tick = 0
-            self.win = True
-            

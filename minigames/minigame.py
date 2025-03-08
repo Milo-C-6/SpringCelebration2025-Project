@@ -7,8 +7,8 @@ class Minigame:
         self.screen_height = screen_height
         self.win = False
 
-    def render():
+    def update():
         pass
 
-    def update():
+    def render():
         pass

@@ -26,6 +26,26 @@ class MgElectrician(Minigame):
         self.task1 = True
         self.task2 = True
 
+    def update(self):
+        self.something_tick += 1
+        if self.something_tick >= 120:
+            self.task1 = False
+        if self.task1 == True:
+            self.task2 = False
+        if self.offset_tick != 16:
+            self.offset_tick +=1
+            self.offset_y+=3
+            return
+        if self.win:
+            if self.win_tick != 15:
+                self.win_tick += 1
+                self.x += self.movement_x
+                self.y += self.movement_y
+                if self.win_tick == 1:
+                    self.offset_y = 0
+                    # self.x = self.screen_width/2-self.width/2
+                    # self.y = self.screen_height/2-self.height
+
     def render(self):
         if self.something_tick <= 120 or self.task2 == True:
             pr.draw_texture_pro(
@@ -95,26 +115,3 @@ class MgElectrician(Minigame):
                 0,
                 pr.WHITE
             )
-        pass
-
-    def update(self):
-        self.something_tick += 1
-        if self.something_tick >= 120:
-            self.task1 = False
-        if self.task1 == True:
-            self.task2 = False
-        if self.offset_tick != 16:
-            self.offset_tick +=1
-            self.offset_y+=3
-            return
-        if self.win:
-            if self.win_tick != 15:
-                self.win_tick += 1
-                self.x += self.movement_x
-                self.y += self.movement_y
-                if self.win_tick == 1:
-                    self.offset_y = 0
-                    # self.x = self.screen_width/2-self.width/2
-                    # self.y = self.screen_height/2-self.height
-        pass
-
