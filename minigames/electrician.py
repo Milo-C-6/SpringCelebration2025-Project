@@ -1,11 +1,13 @@
 import pyray as pr
 from minigames.minigame import Minigame
 from resource_type import ResourceType
+from minigame_ids import MinigameIds
 
 class MgElectrician(Minigame):
     def __init__(self, resources, screen_width, screen_height):
         super().__init__(resources, screen_width, screen_width)
         #Statics
+        self.id = MinigameIds.MGELECTRICIAN
         self.distance_x = (self.screen_width//2.45-self.screen_width//2.8)/2
         self.distance_y = (self.screen_width//3.5-self.screen_height//4.1)/2
         #mostly static

@@ -2,13 +2,16 @@ import pyray as pr
 from minigames.minigame import Minigame
 from minigames.powerwashClasses.splat import PwSplat
 from resource_type import ResourceType
+from minigame_ids import MinigameIds
 
 class MgPowerwash(Minigame):
     def __init__(self, resources, screen_width, screen_height):
         super().__init__(resources, screen_width, screen_width)
+        self.id = MinigameIds.MGPOWERWASH
         self.splats = [PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height)]
         self.sparkle_rectangle = pr.Rectangle(0,0,480,480)
         self.sparkle_tick = 29
+        self.max_time = 4
 
     def update(self):
         if pr.is_mouse_button_down(0):
@@ -69,6 +72,14 @@ class MgPowerwash(Minigame):
                 0,
                 splat.size,
                 splat.color
+            )
+            pr.draw_rectangle_lines_ex(
+                pr.Rectangle(
+                    splat.position.x,splat.position.y,
+                    self.resources[splat.texture].width*splat.size,self.resources[splat.texture].height*splat.size
+                ),
+                1,
+                pr.YELLOW
             )
 
         pr.draw_texture_ex(

@@ -4,7 +4,7 @@ from resource_type import ResourceType
 
 class PwSplat:
     def __init__(self, screen_width, screen_height):
-        self.position = pr.Vector2(random.randint(200,screen_width-200),random.randint(200,screen_height-200))
+        self.position = pr.Vector2(random.randint(300,screen_width-300),random.randint(300,screen_height-300))
         if screen_width >= screen_height:
             self.size = screen_width*(0.4/1280)
         else:

@@ -1,6 +1,7 @@
 import pyray as pr
 from minigames.minigame import Minigame
 from resource_type import ResourceType
+from minigame_ids import MinigameIds
 
 # Minigame Sewing, i love spending 5+ hours on one minigame, and the code ends up being super speghetti
 class MgSewing(Minigame):
@@ -9,6 +10,8 @@ class MgSewing(Minigame):
         #Statics
         self.distance_x = (self.screen_width//2.45-self.screen_width//2.8)/2
         self.distance_y = (self.screen_width//3.5-self.screen_height//4.1)/2
+        self.id = MinigameIds.MGSEWING
+        self.max_time = 8
         #mostly static
         self.width = screen_height * 2
         self.height = screen_height * 2
@@ -16,7 +19,7 @@ class MgSewing(Minigame):
         self.movement_x = 0
         self.movement_y = 0
         #Ticks
-        self.stich_tick = 29
+        self.stich_tick = 21
         self.offset_tick = 16
         self.win_tick = 15
         #everything else
@@ -33,20 +36,20 @@ class MgSewing(Minigame):
         self.starburst_opacity = 0
 
     def update(self):
-        if self.stich_tick != 29:
+        if self.stich_tick != 21:
             self.stich_tick+=1
-            if self.stich_tick%7==0:
+            if self.stich_tick%5==0:
                 if self.direction == 0: self.stich_end_x += self.distance_x
                 else: self.stich_end_x -= self.distance_x
 
-                if self.stich_tick==14:
+                if self.stich_tick==10:
                     self.stiches +=1
                     if self.side == 0:
                         self.side = 1
                     else: self.side = 0
                     self.stich_line_y = self.screen_height//4.1
                 
-                if self.stich_tick==28:
+                if self.stich_tick==20:
                     self.offset_tick = 0
             return
         if self.offset_tick != 16:
