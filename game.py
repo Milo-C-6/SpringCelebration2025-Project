@@ -99,13 +99,13 @@ class Game:
             self.current_minigame.update()
             self.stopwatch_time = round(self.current_minigame.max_time-(pr.get_time()-self.current_minigame.time),2)
             if self.current_minigame.win:
-                self.played_minigames[0] = self.current_minigame.id.value
                 self.stopwatch_color = pr.GREEN
             else:
                 if self.stopwatch_time < 0:
                     self.stopwatch_color = pr.RED
 
             if self.stopwatch_time < -0.4:
+                self.played_minigames[0] = self.current_minigame.id.value
                 self.current_minigame = None
                 self.transition_tick = -20
 
