@@ -33,6 +33,7 @@ class MgElectrician(Minigame):
         self.task3 = True
         self.Rbool = False
         self.holding = False
+        self.end_scene = False
 
 
     def update(self):
@@ -44,6 +45,33 @@ class MgElectrician(Minigame):
 
 
     def render(self):
+        if self.end_scene == True:
+            if self.something_tick <= 90 or self.task2 == True:
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_HOUSE],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
+                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                    (0,0),
+                    0,
+                    pr.WHITE
+                )
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_COMPUTER],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_COMPUTER].width,self.resources[ResourceType.TEXTURE_COMPUTER].height),
+                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                    (0,0),
+                    0,
+                    pr.WHITE
+                )
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_SCREEN2],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_SCREEN2].width,self.resources[ResourceType.TEXTURE_SCREEN2].height),
+                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                    (-50,-75),
+                    0,
+                    pr.WHITE
+                )
+        ##########Begining Scene
         if self.something_tick <= 90 or self.task2 == True:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_HOUSE],
@@ -278,7 +306,7 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
-                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(1180,290,30,120)) and self.task11 == False and self.task2 == True:
+                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(1130,170,100,100)) and self.task2 == False:
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_PLUG],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_PLUG].width,self.resources[ResourceType.TEXTURE_PLUG].height),
@@ -296,6 +324,7 @@ class MgElectrician(Minigame):
                         pr.WHITE
                     )
                     self.task2 = True
+                    self.end_scene = True
                     
 
 
