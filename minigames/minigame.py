@@ -10,6 +10,7 @@ class Minigame:
         self.win = False
         self.time = 0
         self.max_time = 7
+        self.instruction = ""
 
     def update(self):
         pass

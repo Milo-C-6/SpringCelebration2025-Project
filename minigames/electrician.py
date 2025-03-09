@@ -8,24 +8,15 @@ class MgElectrician(Minigame):
         super().__init__(resources, screen_width, screen_width)
         #Statics
         self.id = MinigameIds.MGELECTRICIAN
-        self.distance_x = (self.screen_width//2.45-self.screen_width//2.8)/2
-        self.distance_y = (self.screen_width//3.5-self.screen_height//4.1)/2
         #mostly static
         self.width = screen_height
         self.height = screen_height
-        self.movement_x = 0
-        self.movement_y = 0
         #Ticks
-        self.offset_tick = 16
-        self.win_tick = 15
         self.win = 0
         self.something_tick = 0
         self.max_time = 14
         self.time_tick = 0
         #everything else
-        self.x = screen_height*(-490/720) # a lot of these should be vector2s but I already did so much so whoop
-        self.y = screen_height*(-760/720)
-        self.offset_y = 0
         self.plug_opacity = 0
         self.task11 = True
         self.task12 = True
@@ -34,6 +25,7 @@ class MgElectrician(Minigame):
         self.Rbool = False
         self.holding = False
         self.end_scene = False
+        self.just_once = True
 
 
     def update(self):
@@ -285,6 +277,10 @@ class MgElectrician(Minigame):
                     self.end_scene = True
         if self.end_scene == True:
             self.win = True
+            if self.just_once:
+                if self.max_time-(pr.get_time()-self.time) < 1:
+                    self.max_time+=1
+                self.just_once = False
             if self.something_tick <= 90 or self.task2 == True:
                 pr.draw_texture_pro(
                     self.resources[ResourceType.TEXTURE_HOUSE],
