@@ -120,6 +120,23 @@ class MgElectrician(Minigame):
                         pr.WHITE
                     )
                     self.task11 = True
+                    if self.task11 == True and self.something_tick >= 120:
+                        pr.draw_texture_pro(
+                            self.resources[ResourceType.TEXTURE_CONNECT2],
+                            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                            pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                            (-700,4),
+                            0,
+                            pr.WHITE
+                        )
+                        pr.draw_texture_pro(
+                            self.resources[ResourceType.TEXTURE_WIRE],
+                            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
+                            pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                            (400,0),
+                            0,
+                            pr.WHITE
+                        )
 
                 elif pr.is_mouse_button_down(0):
                     pr.draw_texture_ex(
@@ -153,25 +170,6 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
-
-                
-        elif self.task11 == True and self.something_tick >= 120:
-                pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_CONNECT2],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
-                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (-700,4),
-                    0,
-                    pr.WHITE
-                )
-                pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_WIRE],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
-                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (400,0),
-                    0,
-                    pr.WHITE
-                )
             
 
             
