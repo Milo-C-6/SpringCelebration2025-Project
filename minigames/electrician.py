@@ -173,3 +173,5 @@ class MgElectrician(Minigame):
                     pr.WHITE
                 )
             
+
+            
