@@ -51,3 +51,4 @@ class ResourceType(enum.Enum):
     TEXTURE_SCREEN2 = 48
     TEXTURE_LEFT_CLICK = 49
     TEXTURE_JOBWARE = 50
+    TEXTURE_SCROLL = 51
