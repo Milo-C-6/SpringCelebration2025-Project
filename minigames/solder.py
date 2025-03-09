@@ -85,6 +85,13 @@ class MgSolder(Minigame):
 
         if not pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON):
             pr.draw_texture_ex(
+                self.resources[ResourceType.TEXTURE_LEFT_CLICK],
+                pr.Vector2(640,209),
+                0,
+                1,
+                pr.WHITE
+            )
+            pr.draw_texture_ex(
                 self.top_texture,
                 pr.Vector2(630,321),
                 0,

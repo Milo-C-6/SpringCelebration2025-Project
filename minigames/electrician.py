@@ -137,6 +137,7 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
+                    pr.draw_texture_ex(self.resources[ResourceType.TEXTURE_LEFT_CLICK],pr.Vector2(820,115),0,1,pr.WHITE)
                     #action of taping of wire
                     if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,100,150)) and pr.is_mouse_button_pressed(0) and self.task2 == True:
                         self.task2 = False

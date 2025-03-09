@@ -18,13 +18,13 @@ class Game:
         
         self.current_minigame = None
         self.played_minigames = [None]
-        self.debug_minigame = MinigameIds.MGELECTRICIAN # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
+        self.debug_minigame = None # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
         # When a debug minigame is set, itll skip most of the elevator transition
 
         self.elevator_size = pr.Vector2(screen_width,screen_height)
         self.transition_tick = 0 # max 181, dont edit if you already have a debug minigame set
         self.text_y_tick = 61
-        self.door_width = 498
+        self.door_width = 191
         self.transition = pr.load_render_texture(1280,720)
         self.stopwatch_color = pr.WHITE
         self.stopwatch_time = 7
@@ -36,7 +36,7 @@ class Game:
 
         #i love having to scroll to the end of this to add images - Milo 3/7/25
         # Alt+Z to toggle Word Wrap, makes this MUCH easier - Milo 3/8/25
-        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles_PLACEHOLDER.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator_Programmer_Art.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png","assets/screen2.png","assets/Mouse_Left_Key_Light.png"]
+        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles_PLACEHOLDER.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png","assets/screen2.png","assets/Mouse_Left_Key_Light.png"]
         iteration = 0
 
         for key in ResourceType:
@@ -50,6 +50,8 @@ class Game:
             iteration+=1
 
     def update(self):
+        if pr.is_mouse_button_pressed(pr.MOUSE_RIGHT_BUTTON):
+            print(pr.get_mouse_position().x,pr.get_mouse_position().y)
         if self.transition_tick != 181:
             if self.debug_minigame != None and self.transition_tick == 0:
                 self.transition_tick = 109
@@ -57,13 +59,19 @@ class Game:
             self.transition_tick+=1
 
             if self.transition_tick < 0:
-                self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(-48.15,-48.15)) #fresh value, guess where it came from?
-                self.door_width += 56.85
+                # print(print(self.elevator_size.y))
+                # print(1/0)
+                self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(-51.37,-28.9)) #fresh value, guess where it came from?
+                self.door_width += 16
                 self.stopwatch_color = pr.WHITE
             # i wish i knew about texture mode before, im going to crash out
             pr.begin_texture_mode(self.transition)
 
-            # pr.clear_background(pr.WHITE)
+            pr.clear_background(pr.WHITE)
+            #Door, Top left (455, 40), Top right (836,39), Bottom Right (836, 695), Bottom Left (454, 695)
+            # pr.draw_rectangle(391,183,int(self.door_width),537,pr.Color(188,188,188,255))
+            pr.draw_rectangle(455,39,self.door_width,657,pr.Color(188,188,188,255))
+            pr.draw_rectangle(837+(-self.door_width),39,self.door_width,657,pr.Color(188,188,188,255)) # I have no clue what possesed me to think of that math for the door
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_MAIN_ELEVATOR],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_MAIN_ELEVATOR].width,self.resources[ResourceType.TEXTURE_MAIN_ELEVATOR].height),
@@ -72,8 +80,6 @@ class Game:
                 0,
                 pr.WHITE
             )
-            pr.draw_rectangle(391,183,int(self.door_width),537,pr.GRAY)
-
             pr.end_texture_mode()
             if self.transition_tick >= 110:
                 if self.transition_tick == 110:
@@ -101,12 +107,12 @@ class Game:
                     self.text_size = 250
                     self.text_pos_y = 360
                     self.current_minigame.update()
-
-                self.door_width -= 15
+                if not self.transition_tick > 129:
+                    self.door_width -= 15
                 if not self.text_size < 60:
                     self.text_size -= 15
                 if self.transition_tick > 120:
-                    self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(15,15))
+                    self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(16,9))
                     if self.transition_tick == 180:
                         self.current_minigame.time = pr.get_time()
                         self.text_y_tick = 0
