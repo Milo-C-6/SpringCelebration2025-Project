@@ -18,15 +18,18 @@ class Game:
         
         self.current_minigame = None
         self.played_minigames = [None]
-        self.debug_minigame = MinigameIds.MGELECTRICIAN # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
+        self.debug_minigame = None # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
         # When a debug minigame is set, itll skip most of the elevator transition
 
         self.elevator_size = pr.Vector2(screen_width,screen_height)
         self.transition_tick = 0 # max 181, dont edit if you already have a debug minigame set
+        self.text_y_tick = 61
         self.door_width = 498
         self.transition = pr.load_render_texture(1280,720)
         self.stopwatch_color = pr.WHITE
         self.stopwatch_time = 7
+        self.text_pos_y = self.screen_height//2
+        self.text_size = 250 #40
 
     def startup(self):
         pr.init_audio_device()
@@ -95,16 +98,18 @@ class Game:
                             self.current_minigame = MgMusic(self.resources,self.screen_width,self.screen_height)
                         case _:
                             print("someone messed up")
-
+                    self.text_size = 250
+                    self.text_pos_y = 360
                     self.current_minigame.update()
 
                 self.door_width -= 15
-
+                if not self.text_size < 60:
+                    self.text_size -= 15
                 if self.transition_tick > 120:
                     self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(15,15))
                     if self.transition_tick == 180:
                         self.current_minigame.time = pr.get_time()
-        
+                        self.text_y_tick = 0
         elif self.current_minigame != None:
             self.current_minigame.update()
             self.stopwatch_time = round(self.current_minigame.max_time-(pr.get_time()-self.current_minigame.time),2)
@@ -118,6 +123,10 @@ class Game:
                 self.played_minigames[0] = self.current_minigame.id.value
                 self.current_minigame = None
                 self.transition_tick = -20
+        
+        if self.text_y_tick!=61:
+            self.text_pos_y-=15
+            self.text_y_tick+=1
 
     def render(self): #i love the saxophone in this goofy punk rock french song https://www.youtube.com/watch?v=zreo9Y3EieA
         if self.current_minigame != None:
@@ -143,6 +152,8 @@ class Game:
                 0,
                 pr.WHITE
             )
+        if self.current_minigame != None:
+            pr.draw_text(self.current_minigame.instruction,int(self.screen_width//2-(pr.measure_text(self.current_minigame.instruction,self.text_size)/2)),int(self.text_pos_y),self.text_size,pr.BLACK)
 
     def shutdown(self):
         for key in ResourceType:

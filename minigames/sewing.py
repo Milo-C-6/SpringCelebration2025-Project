@@ -12,6 +12,7 @@ class MgSewing(Minigame):
         self.distance_y = (self.screen_width//3.5-self.screen_height//4.1)/2
         self.id = MinigameIds.MGSEWING
         self.max_time = 8
+        self.instruction = "Finish sewing the doll"
         #mostly static
         self.width = screen_height * 2
         self.height = screen_height * 2

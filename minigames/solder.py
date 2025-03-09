@@ -6,8 +6,11 @@ from minigames.minigame import Minigame
 class MgSolder(Minigame):
     def __init__(self, resources, screen_width, screen_height):
         super().__init__(resources, screen_width, screen_width)
+        #Static
         self.id = MinigameIds.MGSOLDER
         self.max_time = 5
+        self.instruction = "Bind the wire and the PCB with solder!"
+        #Not static
         self.led_texutre = self.resources[ResourceType.TEXTURE_LED_OFF]
         self.iron_distance = pr.Vector2(0,-300)
         self.solder_distance = pr.Vector2(-136,-87)

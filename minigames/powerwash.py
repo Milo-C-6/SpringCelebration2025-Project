@@ -8,6 +8,7 @@ class MgPowerwash(Minigame):
     def __init__(self, resources, screen_width, screen_height):
         super().__init__(resources, screen_width, screen_width)
         self.id = MinigameIds.MGPOWERWASH
+        self.instruction = "Clean off the mess!"
         self.splats = [PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height)]
         self.sparkle_rectangle = pr.Rectangle(0,0,480,480)
         self.sparkle_tick = 29

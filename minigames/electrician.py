@@ -8,6 +8,7 @@ class MgElectrician(Minigame):
         super().__init__(resources, screen_width, screen_width)
         #Statics
         self.id = MinigameIds.MGELECTRICIAN
+        self.instruction = "Fix issues!"
         #mostly static
         self.width = screen_height
         self.height = screen_height
