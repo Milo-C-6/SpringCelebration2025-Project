@@ -214,7 +214,6 @@ class MgElectrician(Minigame):
                 #player controls
                 if pr.is_mouse_button_down(0):
                     self.holding = True
-                    
                     pr.draw_texture_ex(
                         self.resources[ResourceType.TEXTURE_WIRE],
                         pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-930,-225)), #should be changed for scaling! if we still care for that
