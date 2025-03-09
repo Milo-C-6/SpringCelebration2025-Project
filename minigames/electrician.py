@@ -102,7 +102,7 @@ class MgElectrician(Minigame):
                     pr.WHITE
                 )
 
-                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,40,30)) and pr.is_mouse_button_down(0):
+                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,40,30)) and self.task11 == False:
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
@@ -120,25 +120,37 @@ class MgElectrician(Minigame):
                         pr.WHITE
                     )
                     self.task11 = True
-                    if self.task11 == True and self.something_tick >= 120:
-                        pr.draw_texture_pro(
-                            self.resources[ResourceType.TEXTURE_CONNECT2],
-                            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
-                            pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                            (-700,4),
-                            0,
-                            pr.WHITE
-                        )
-                        pr.draw_texture_pro(
-                            self.resources[ResourceType.TEXTURE_WIRE],
-                            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
-                            pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                            (400,0),
-                            0,
-                            pr.WHITE
-                        )
 
-                elif pr.is_mouse_button_down(0):
+
+                if self.task11 == True:
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_CONNECT2],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (-700,4),
+                        0,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (400,0),
+                        0,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_TAPE],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_TAPE].width,self.resources[ResourceType.TEXTURE_TAPE].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (0,0),
+                        0,
+                        pr.WHITE
+                    )
+                    if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,60,40)) and pr.is_mouse_button_pressed(0):
+                        self.win = True
+
+                elif pr.is_mouse_button_down(0) and self.task11 == False:
                     pr.draw_texture_ex(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-250,-300)), #should be changed for scaling! if we still care for that
@@ -153,7 +165,7 @@ class MgElectrician(Minigame):
                         1,
                         pr.WHITE
                     )
-                if not pr.is_mouse_button_down(0):
+                if not pr.is_mouse_button_down(0) and self.task11 == False :
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
@@ -170,6 +182,15 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
+        if self.win == True:
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_TAPE_WIRE],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_TAPE_WIRE].width,self.resources[ResourceType.TEXTURE_TAPE_WIRE].height),
+                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                (0,0),
+                0,
+                pr.WHITE
+            )
             
 
             

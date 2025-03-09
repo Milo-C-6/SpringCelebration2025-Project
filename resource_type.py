@@ -26,3 +26,5 @@ class ResourceType(enum.Enum):
     TEXTURE_CONNECT2 = 23
     TEXTURE_MAIN_ELEVATOR = 24
     TEXTURE_TIMER = 25
+    TEXTURE_TAPE = 26
+    TEXTURE_TAPE_WIRE = 27
