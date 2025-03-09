@@ -264,7 +264,7 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
-                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(1180,170,100,200)) and self.task2 == False:
+                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(1220,170,100,200)) and self.task2 == False:
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_PLUG],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_PLUG].width,self.resources[ResourceType.TEXTURE_PLUG].height),
