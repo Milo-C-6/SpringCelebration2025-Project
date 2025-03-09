@@ -49,3 +49,4 @@ class ResourceType(enum.Enum):
     TEXTURE_TAPE_WIRE = 46
     TEXTURE_HOUSE2 = 47
     TEXTURE_SCREEN2 = 48
+    TEXTURE_LEFT_CLICK = 49

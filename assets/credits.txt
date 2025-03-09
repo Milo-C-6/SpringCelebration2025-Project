@@ -1,7 +1,8 @@
-Powerwash Gun: DLab5, Original asset
-Sewing Monster Doll: Milo-C-6, Original Asset
+Powerwash Gun,Sheet_Music_Transparent,Music by DLab5, Original asset
+Sewing Monster Doll by Milo-C-6, Original Asset
+background,computer,connect_wire,electricity,lasttaskbg,tape,tapedwire,wire,wire2 by LincolnDabb3, Original Asset
 
-all keyboard related images: Nicolae (XELU) Berbece, Public Domain CC0. Source: https://thoseawesomeguys.com/prompts/
+all keyboard and mouse related images: Nicolae (XELU) Berbece, Public Domain CC0. Source: https://thoseawesomeguys.com/prompts/
 
 Starburst_Explosion, Splat_Stripe, Splat_Coffee: License: http://www.onlygfx.com/terms-of-use/ Source: https://www.onlygfx.com/6-starburst-explosion-comic-vector-png-transparent-svg/,
 https://www.onlygfx.com/hard-splatter-stripe-background-png-transparent/, https://www.onlygfx.com/4-coffee-splash-splatter-png-transparent/
