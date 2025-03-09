@@ -196,7 +196,7 @@ class MgElectrician(Minigame):
                 self.resources[ResourceType.TEXTURE_HOUSE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
                 pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (100,0),
+                (0,0),
                 0,
                 pr.WHITE
             )
@@ -204,7 +204,7 @@ class MgElectrician(Minigame):
                 self.resources[ResourceType.TEXTURE_TAPE_WIRE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_TAPE_WIRE].width,self.resources[ResourceType.TEXTURE_TAPE_WIRE].height),
                 pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (100,0),
+                (0,0),
                 0,
                 pr.WHITE
             )
