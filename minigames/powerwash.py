@@ -11,8 +11,9 @@ class MgPowerwash(Minigame):
         self.instruction = "Clean off the mess!"
         self.splats = [PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height),PwSplat(screen_width,screen_height)]
         self.sparkle_rectangle = pr.Rectangle(0,0,480,480)
-        self.sparkle_tick = 29
-        self.max_time = 4
+        self.sparkle_pos = [pr.Vector2(406, 594),pr.Vector2(449, 348),pr.Vector2(265, 338),pr.Vector2(142, 240),pr.Vector2(505, 47),pr.Vector2(667, 296),pr.Vector2(705, 396),pr.Vector2(1068, 229),pr.Vector2(1019, 101),pr.Vector2(945, 520),pr.Vector2(1004, 530),pr.Vector2(1121, 648),pr.Vector2(401, 592),pr.Vector2(257, 636),pr.Vector2(132, 493)]
+        self.sparkle_frames = [0,14,3,9,4,17,8,0,19,10,11,15,4,2,1]
+        self.max_time = 400
 
     def update(self):
         if pr.is_mouse_button_down(0):
@@ -38,22 +39,12 @@ class MgPowerwash(Minigame):
                     splat.color = pr.color_alpha(splat.color,splat.alpha)
                     if splat.alpha <= 0:
                         self.splats.remove(splat)
-        if self.sparkle_tick!=29:
-            offset_y = 0
-            if self.sparkle_tick>5: offset_y=480 #probably a way better way to do this, but i dont know!!!
-            if self.sparkle_tick>10: offset_y=960
-            if self.sparkle_tick>15: offset_y=1440
-            if self.sparkle_tick>20: offset_y=1920
-            if self.sparkle_tick>25: offset_y=2400
-            self.sparkle_rectangle = pr.Rectangle(
-                self.sparkle_tick%6*480,
-                offset_y,
-                480,480
-            )
-            self.sparkle_tick+=1
-            return
+        for i in range(len(self.sparkle_frames)):
+            self.sparkle_frames[i] += 1
+            if self.sparkle_frames[i] == 20:
+                self.sparkle_frames[i] = 0
+        
         if len(self.splats)==0:
-            self.sparkle_tick = 0
             self.win = True
 
     def render(self):
@@ -100,11 +91,12 @@ class MgPowerwash(Minigame):
             )
 
         if self.win:
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_SHEET_SPARKLE],
-                self.sparkle_rectangle,
-                pr.Rectangle(0,0,self.screen_width,self.screen_height),
-                pr.Vector2(0,0),
-                0,
-                pr.WHITE
-            )
+            for i in range(len(self.sparkle_pos)):
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_SHEET_SPARKLE],
+                    pr.Rectangle(0,self.sparkle_frames[i]*24,self.resources[ResourceType.TEXTURE_SHEET_SPARKLE].width,24),
+                    pr.Rectangle(self.sparkle_pos[i].x,self.sparkle_pos[i].y,48,48),
+                    pr.Vector2(0,0),
+                    0,
+                    pr.WHITE
+                )

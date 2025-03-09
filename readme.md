@@ -2,11 +2,10 @@
 my groups project for the Ken Garff Esports Spring Celebration Coding Competition
 
 ## TODO:
-* !!! Replace `assets/Sparkles_PLACEHOLDER.gif`
-* Add more minigames
-    - first idea off the top of my head is a Welding like one, and a cooking one
-* Make transition between minigames ✨ prettier ✨
+* Include Score in transition between minigames
 * Add lives
-* Add instruction thingy
 * Add score counter
 * Make main menu
+* *Add more minigames*
+    - **Not as needed anymore but still would be cool if we had time**
+    - first idea off the top of my head is a Welding like one, and a cooking one
