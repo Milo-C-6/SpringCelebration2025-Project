@@ -145,7 +145,7 @@ class MgElectrician(Minigame):
                         pr.WHITE
                     )
                     #action of taping of wire
-                    if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,100,100)) and pr.is_mouse_button_pressed(0) and self.task2 == True:
+                    if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,100,150)) and pr.is_mouse_button_pressed(0) and self.task2 == True:
                         self.task2 = False
                         
 
@@ -252,7 +252,7 @@ class MgElectrician(Minigame):
                         self.resources[ResourceType.TEXTURE_WIRE],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
                         pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                        (600,-100),
+                        (600,-50),
                         0,
                         pr.WHITE
                     )
