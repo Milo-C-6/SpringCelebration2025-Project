@@ -45,3 +45,6 @@ class ResourceType(enum.Enum):
     SOUND_GUITAR_5 = 42
     SOUND_GUITAR_8 = 43
     SOUND_GUITAR_9 = 44
+    TEXTURE_TAPE = 45
+    TEXTURE_TAPE_WIRE = 46
+    TEXTURE_HOUSE2 = 47
