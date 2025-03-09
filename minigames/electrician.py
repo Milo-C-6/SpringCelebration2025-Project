@@ -77,78 +77,98 @@ class MgElectrician(Minigame):
 
         #task 1 of 3
         if self.something_tick >= 90 and self.task11 == False:
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_WIRE2],
-                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE2].width,self.resources[ResourceType.TEXTURE_WIRE2].height),
-                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (-1000,0),
-                0,
-                pr.WHITE
-            )
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_HOUSE],
-                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
-                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (0,0),
-                0,
-                pr.WHITE
-            )
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_CONNECT1],
-                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT1].width,self.resources[ResourceType.TEXTURE_CONNECT1].height),
-                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (0,0),
-                0,
-                pr.WHITE
-            )
-
-            if pr.is_mouse_button_down(0) and pr.get_mouse_position().x < 920 and pr.get_mouse_position().x > 900 and pr.get_mouse_position().y > 290 and pr.get_mouse_position().y < 310:
                 pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_CONNECT2],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                    self.resources[ResourceType.TEXTURE_WIRE2],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE2].width,self.resources[ResourceType.TEXTURE_WIRE2].height),
                     pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (1000,0),
+                    (-1000,0),
                     0,
                     pr.WHITE
                 )
                 pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_WIRE],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
-                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (800,0),
-                    0,
-                    pr.WHITE
-                )
-                
-            if pr.is_mouse_button_down(0):
-                pr.draw_texture_ex(
-                    self.resources[ResourceType.TEXTURE_CONNECT2],
-                    pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-250,-300)), #should be changed for scaling! if we still care for that
-                    0,
-                    1,
-                    pr.WHITE
-                )
-                pr.draw_texture_ex(
-                    self.resources[ResourceType.TEXTURE_WIRE],
-                    pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-1280,-295)), #should be changed for scaling! if we still care for that
-                    0,
-                    1,
-                    pr.WHITE
-                )
-            if not pr.is_mouse_button_down(0):
-                pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_CONNECT2],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                    self.resources[ResourceType.TEXTURE_HOUSE],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
                     pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
                     (0,0),
                     0,
                     pr.WHITE
                 )
                 pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_CONNECT1],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT1].width,self.resources[ResourceType.TEXTURE_CONNECT1].height),
+                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                    (0,0),
+                    0,
+                    pr.WHITE
+                )
+
+                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,40,30)) and pr.is_mouse_button_down(0):
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_CONNECT2],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (-700,4),
+                        0,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (400,0),
+                        0,
+                        pr.WHITE
+                    )
+                    self.task11 = True
+
+                elif pr.is_mouse_button_down(0):
+                    pr.draw_texture_ex(
+                        self.resources[ResourceType.TEXTURE_CONNECT2],
+                        pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-250,-300)), #should be changed for scaling! if we still care for that
+                        0,
+                        1,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_ex(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-1280,-295)), #should be changed for scaling! if we still care for that
+                        0,
+                        1,
+                        pr.WHITE
+                    )
+                if not pr.is_mouse_button_down(0):
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_CONNECT2],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (0,0),
+                        0,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (1000,0),
+                        0,
+                        pr.WHITE
+                    )
+
+                
+        elif self.task11 == True and self.something_tick >= 120:
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_CONNECT2],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
+                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                    (-700,4),
+                    0,
+                    pr.WHITE
+                )
+                pr.draw_texture_pro(
                     self.resources[ResourceType.TEXTURE_WIRE],
                     pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
                     pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (1000,0),
+                    (400,0),
                     0,
                     pr.WHITE
                 )
