@@ -20,33 +20,28 @@ class MgElectrician(Minigame):
         self.win_tick = 15
         self.win = 0
         self.something_tick = 0
+        self.max_time = 14
+        self.time_tick = 0
         #everything else
         self.x = screen_height*(-490/720) # a lot of these should be vector2s but I already did so much so whoop
         self.y = screen_height*(-760/720)
         self.offset_y = 0
         self.plug_opacity = 0
         self.task11 = True
+        self.task12 = True
         self.task2 = True
+        self.task3 = True
+        self.Rbool = False
+        self.holding = False
+
 
     def update(self):
         self.something_tick += 1
         if self.something_tick >= 90:
             self.task11 = False
-        if self.task11 == True:
-            self.task2 = False
-        if self.offset_tick != 16:
-            self.offset_tick +=1
-            self.offset_y+=3
-            return
-        if self.win:
-            if self.win_tick != 15:
-                self.win_tick += 1
-                self.x += self.movement_x
-                self.y += self.movement_y
-                if self.win_tick == 1:
-                    self.offset_y = 0
-                    # self.x = self.screen_width/2-self.width/2
-                    # self.y = self.screen_height/2-self.height
+        if self.Rbool:
+            self.time_tick += 1
+
 
     def render(self):
         if self.something_tick <= 90 or self.task2 == True:
@@ -75,8 +70,8 @@ class MgElectrician(Minigame):
                 pr.WHITE
             )
 
-        #task 1 of 3
-        if self.something_tick >= 90 and self.task11 == False:
+        #task 1 and 2 of 3
+        if self.something_tick >= 90 and self.task11 == False and self.task2 == True:
                 pr.draw_texture_pro(
                     self.resources[ResourceType.TEXTURE_WIRE2],
                     pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE2].width,self.resources[ResourceType.TEXTURE_WIRE2].height),
@@ -102,7 +97,7 @@ class MgElectrician(Minigame):
                     pr.WHITE
                 )
 
-                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,40,30)) and self.task11 == False:
+                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,40,30)) and self.task11 == False and self.task2 == True:
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
@@ -121,8 +116,8 @@ class MgElectrician(Minigame):
                     )
                     self.task11 = True
 
-
-                if self.task11 == True:
+                if self.task11 == True and self.task2 == True:
+                    self.task12 = False
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
@@ -147,10 +142,29 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
-                    if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,60,40)) and pr.is_mouse_button_pressed(0):
-                        self.win = True
+                    #action of taping of wire
+                    if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(900,290,100,100)) and pr.is_mouse_button_pressed(0) and self.task2 == True:
+                        self.task2 = False
+                        pr.draw_texture_pro(
+                            self.resources[ResourceType.TEXTURE_HOUSE],
+                            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
+                            pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                            (100,0),
+                            0,
+                            pr.WHITE
+                        )
+                        pr.draw_texture_pro(
+                            self.resources[ResourceType.TEXTURE_TAPE_WIRE],
+                            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_TAPE_WIRE].width,self.resources[ResourceType.TEXTURE_TAPE_WIRE].height),
+                            pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                            (100,0),
+                            0,
+                            pr.WHITE
+                        )
+                        
 
-                elif pr.is_mouse_button_down(0) and self.task11 == False:
+                    #player controls
+                elif pr.is_mouse_button_down(0) and self.task11 == False and self.task2 == True:
                     pr.draw_texture_ex(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-250,-300)), #should be changed for scaling! if we still care for that
@@ -165,7 +179,8 @@ class MgElectrician(Minigame):
                         1,
                         pr.WHITE
                     )
-                if not pr.is_mouse_button_down(0) and self.task11 == False :
+                    #if player is not holding wire
+                if not pr.is_mouse_button_down(0) and self.task11 == False and self.task2 == True:
                     pr.draw_texture_pro(
                         self.resources[ResourceType.TEXTURE_CONNECT2],
                         pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_CONNECT2].width,self.resources[ResourceType.TEXTURE_CONNECT2].height),
@@ -182,15 +197,110 @@ class MgElectrician(Minigame):
                         0,
                         pr.WHITE
                     )
-        if self.win == True:
+
+
+                            #####################################################
+                            #Task 3 out of 3
+                            
+
+                            
+        if self.task2 == False:
+            self.Rbool = True
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_HOUSE],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
+                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                (100,0),
+                0,
+                pr.WHITE
+            )
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_TAPE_WIRE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_TAPE_WIRE].width,self.resources[ResourceType.TEXTURE_TAPE_WIRE].height),
                 pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (0,0),
+                (100,0),
                 0,
                 pr.WHITE
             )
+            if self.time_tick >= 60:
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_HOUSE2],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE2].width,self.resources[ResourceType.TEXTURE_HOUSE2].height),
+                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                    (0,0),
+                    0,
+                    pr.WHITE
+                )
+                
+                #player controls
+                if pr.is_mouse_button_down(0):
+                    self.holding = True
+                    
+                    pr.draw_texture_ex(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-930,-225)), #should be changed for scaling! if we still care for that
+                        1,
+                        .75,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_ex(
+                        self.resources[ResourceType.TEXTURE_WIRE2],
+                        pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-1330,-230)), #should be changed for scaling! if we still care for that
+                        1,
+                        .75,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_ex(
+                        self.resources[ResourceType.TEXTURE_PLUG],
+                        pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-500,-250)), #should be changed for scaling! if we still care for that
+                        0,
+                        .75,
+                        pr.WHITE
+                    )
+                else:
+                    self.holding = False
+                    
+                #if player is not holding wire
+                if not pr.is_mouse_button_down(0) and self.holding == False:
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (600,-100),
+                        0,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_PLUG],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_PLUG].width,self.resources[ResourceType.TEXTURE_PLUG].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (0,0),
+                        0,
+                        pr.WHITE
+                    )
+                if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(1180,290,30,120)) and self.task11 == False and self.task2 == True:
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_PLUG],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_PLUG].width,self.resources[ResourceType.TEXTURE_PLUG].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (-700,4),
+                        .75,
+                        pr.WHITE
+                    )
+                    pr.draw_texture_pro(
+                        self.resources[ResourceType.TEXTURE_WIRE],
+                        pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE].width,self.resources[ResourceType.TEXTURE_WIRE].height),
+                        pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                        (400,0),
+                        .75,
+                        pr.WHITE
+                    )
+                    self.task2 = True
+                    
+
+
+                    
+        
             
 
             

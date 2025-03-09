@@ -28,3 +28,4 @@ class ResourceType(enum.Enum):
     TEXTURE_TIMER = 25
     TEXTURE_TAPE = 26
     TEXTURE_TAPE_WIRE = 27
+    TEXTURE_HOUSE2 = 28
