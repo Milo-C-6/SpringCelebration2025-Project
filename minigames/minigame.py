@@ -11,8 +11,8 @@ class Minigame:
         self.time = 0
         self.max_time = 7
 
-    def update():
+    def update(self):
         pass
 
-    def render():
+    def render(self):
         pass
