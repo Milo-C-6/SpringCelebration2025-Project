@@ -5,3 +5,5 @@ class MinigameIds(enum.Enum):
     MGSEWING = 1
     MGPOWERWASH = 2
     MGELECTRICIAN = 3
+    MGSOLDER = 4
+    MGMUSIC = 5

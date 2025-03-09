@@ -5,6 +5,8 @@ from minigame_ids import MinigameIds
 from minigames.sewing import MgSewing
 from minigames.electrician import MgElectrician
 from minigames.powerwash import MgPowerwash
+from minigames.solder import MgSolder
+from minigames.music import MgMusic
 
 class Game:
     def __init__(self, screen_width, screen_height):
@@ -29,15 +31,19 @@ class Game:
     def startup(self):
         pr.init_audio_device()
 
-        #i love having to scroll to the end of this to add images
-        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles_PLACEHOLDER.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator_Programmer_Art.png","assets/Timer.png","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png"]
+        #i love having to scroll to the end of this to add images - Milo 3/7/25
+        # Alt+Z to toggle Word Wrap, makes this MUCH easier - Milo 3/8/25
+        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles_PLACEHOLDER.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator_Programmer_Art.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png"]
         iteration = 0
 
         for key in ResourceType:
-            image = pr.load_image(assets[iteration])
-            self.resources[key] = pr.load_texture_from_image(image)
-            print(key)
-            pr.unload_image(image)
+            if key.name[:5]=="SOUND":
+                print("Loaded sound")
+                self.resources[key] = pr.load_sound(assets[iteration])
+            else:
+                image = pr.load_image(assets[iteration])
+                self.resources[key] = pr.load_texture_from_image(image)
+                pr.unload_image(image)
             iteration+=1
 
     def update(self):
@@ -77,12 +83,16 @@ class Game:
                         proposed_minigame = random.randint(1,2) # second value is number of completed minigames
 
                     match proposed_minigame: # I want current_minigame to be assigned a new Minigame class, and this does that I think, but I feel like there should be a better way...
-                        case 1:
+                        case MinigameIds.MGSEWING.value:
                             self.current_minigame = MgSewing(self.resources, self.screen_width, self.screen_height)
-                        case 2:
+                        case MinigameIds.MGPOWERWASH.value:
                             self.current_minigame = MgPowerwash(self.resources, self.screen_width, self.screen_height)
-                        case 3:
+                        case MinigameIds.MGELECTRICIAN.value:
                             self.current_minigame = MgElectrician(self.resources, self.screen_width, self.screen_height)
+                        case MinigameIds.MGSOLDER.value:
+                            self.current_minigame = MgSolder(self.resources, self.screen_width, self.screen_height)
+                        case MinigameIds.MGMUSIC.value:
+                            self.current_minigame = MgMusic(self.resources,self.screen_width,self.screen_height)
                         case _:
                             print("someone messed up")
 
