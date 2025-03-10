@@ -2,6 +2,7 @@
 my groups project for the Ken Garff Esports Spring Celebration Coding Competition
 
 ## TODO:
+* Implement audio
 * Do some small polishing
     - We need a sewing needle in sewing
     - We need a background for sewing, and soldering
