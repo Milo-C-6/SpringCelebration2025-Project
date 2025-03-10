@@ -8,6 +8,7 @@ from minigames.powerwash import MgPowerwash
 from minigames.solder import MgSolder
 from minigames.music import MgMusic
 from minigames.construct import MgConstruct
+from minigames.archaeology import MgArchaeology
 
 class Game:
     def __init__(self, screen_width, screen_height):
@@ -18,9 +19,9 @@ class Game:
         self.max_time_multiplier = 1
         self.current_minigame = None
         self.played_minigames = [None]
-        self.debug_minigame = MinigameIds.MGCONSTRUCT # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
+        self.debug_minigame = None # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
         # When a debug minigame is set, itll skip most of the elevator transition
-        self.playing = True # make sure to set this if you have a debug minigame!!!
+        self.playing = False # make sure to set this if you have a debug minigame!!!
         self.elevator_size = pr.Vector2(screen_width,screen_height)
         self.transition_tick = 0 # max 181, dont edit if you already have a debug minigame set
         self.text_y_tick = 61
@@ -51,7 +52,7 @@ class Game:
 
         #i love having to scroll to the end of this to add images - Milo 3/7/25
         # Alt+Z to toggle Word Wrap, makes this MUCH easier - Milo 3/8/25
-        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png","assets/screen2.png","assets/Mouse_Left_Key_Light.png","assets/JobWare.png", "assets/Scroll.png","assets/7segment.ttf","assets/Heart.png","assets/Heart_Broken.png","assets/sounds/MainTheme.wav","assets/sounds/Background.wav","assets/sounds/ShortWin.wav","assets/sounds/Guitar_Fail.ogg","assets/Table_BG.jpg","assets/Wood.jpg","assets/sounds/Lose.wav","assets/Sewing_Needle.png","assets/sounds/Begin.ogg","assets/conbg.png","assets/condonebg.png","assets/block1.png","assets/block2.png"]
+        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png","assets/screen2.png","assets/Mouse_Left_Key_Light.png","assets/JobWare.png", "assets/Scroll.png","assets/7segment.ttf","assets/Heart.png","assets/Heart_Broken.png","assets/sounds/MainTheme.wav","assets/sounds/Background.wav","assets/sounds/ShortWin.wav","assets/sounds/Guitar_Fail.ogg","assets/Table_BG.jpg","assets/Wood.jpg","assets/sounds/Lose.wav","assets/Sewing_Needle.png","assets/sounds/Begin.ogg","assets/conbg.png","assets/condonebg.png","assets/block1.png","assets/block2.png","assets/Forest_BG.png","assets/Hole.png","assets/Shovel.png","assets/Pottery_Shard.png","assets/sounds/Dig.ogg"]
         iteration = 0
 
         for key in ResourceType:
@@ -183,7 +184,7 @@ class Game:
                             proposed_minigame = self.played_minigames[0]
 
                         while proposed_minigame in self.played_minigames:
-                            proposed_minigame = random.randint(1,5) # second value is number of completed minigames
+                            proposed_minigame = random.randint(1,7) # second value is number of completed minigames
 
                         match proposed_minigame: # I want current_minigame to be assigned a new Minigame class, and this does that I think, but I feel like there should be a better way...
                             case MinigameIds.MGSEWING.value:
@@ -199,6 +200,8 @@ class Game:
                                 pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],0.2)
                             case MinigameIds.MGCONSTRUCT.value:
                                 self.current_minigame = MgConstruct(self.resources, self.screen_width, self.screen_height, self.speed, self.max_time_multiplier)
+                            case MinigameIds.MGARCHAEOLOGY.value:
+                                self.current_minigame = MgArchaeology(self.resources, self.screen_width, self.screen_height, self.speed, self.max_time_multiplier)
                             case _:
                                 print("someone messed up")
                         self.text_size = 250

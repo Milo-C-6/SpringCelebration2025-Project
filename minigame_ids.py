@@ -8,3 +8,4 @@ class MinigameIds(enum.Enum):
     MGSOLDER = 4
     MGMUSIC = 5
     MGCONSTRUCT = 6
+    MGARCHAEOLOGY = 7
