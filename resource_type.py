@@ -64,3 +64,7 @@ class ResourceType(enum.Enum):
     SOUND_LOSE = 61
     TEXTURE_NEEDLE = 62
     SOUND_BEGIN = 63
+    TEXTURE_BGUNDONE = 64
+    TEXTURE_BGDONE = 65
+    TEXTURE_BLOCK1 = 66
+    TEXTURE_BLOCK2 = 67
