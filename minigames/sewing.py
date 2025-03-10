@@ -90,11 +90,19 @@ class MgSewing(Minigame):
             self.current_instruction = self.resources[ResourceType.TEXTURE_KEY_RIGHT]
 
     def render(self):
+        pr.draw_texture_pro(
+            self.resources[ResourceType.TEXTURE_WOOD],
+            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WOOD].width,self.resources[ResourceType.TEXTURE_WOOD].height),
+            pr.Rectangle(0,0,self.screen_width,self.screen_width),
+            pr.Vector2(0,0),
+            0,
+            pr.WHITE
+        )
         if self.side == 1:
             pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.BLACK)
 
         if self.win:
-            pr.clear_background(pr.Color(255,191,0,self.starburst_opacity))
+            pr.draw_rectangle(0,0,1280,720,pr.Color(255,191,0,self.starburst_opacity))
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].width,self.resources[ResourceType.TEXTURE_STARBURST_EXPLOSION].height),

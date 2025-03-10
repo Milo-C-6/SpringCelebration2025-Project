@@ -35,9 +35,9 @@ class MgSolder(Minigame):
                 self.top_texture = self.resources[ResourceType.TEXTURE_CHECK]
             elif self.top_solder_radius > 15.5:
                 self.top_texture = self.resources[ResourceType.TEXTURE_WRONG]
-            if self.bottom_solder_radius >= 9.7 and self.bottom_solder_radius <= 15.5:
+            if self.bottom_solder_radius >= 9.7 and self.bottom_solder_radius <= 16:
                 self.bottom_texture = self.resources[ResourceType.TEXTURE_CHECK]
-            elif self.bottom_solder_radius > 15.5:
+            elif self.bottom_solder_radius > 16:
                 self.bottom_texture = self.resources[ResourceType.TEXTURE_WRONG]
 
             self.iron_distance = pr.Vector2(0,-300)
@@ -50,6 +50,14 @@ class MgSolder(Minigame):
             self.led_texutre = self.resources[ResourceType.TEXTURE_LED_OFF]
 
     def render(self):
+        pr.draw_texture_pro(
+            self.resources[ResourceType.TEXTURE_TABLE_BG],
+            pr.Rectangle(0,0,1280,720),
+            pr.Rectangle(0,0,1280,720),
+            pr.Vector2(0,0),
+            0,
+            pr.WHITE
+        )
         pr.draw_texture_ex(
             self.resources[ResourceType.TEXTURE_PCB],
             pr.Vector2(400,200),

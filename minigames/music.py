@@ -132,6 +132,7 @@ class MgMusic(Minigame):
                 pr.draw_rectangle(600+x_offset*125,155+i*-40,125,37,pr.RED)
     
     def lose(self):
+        pr.play_sound(self.resources[ResourceType.SOUND_GUITAR_FAIL])
         self.lost = True
         self.bg_color = pr.RED
         self.notes = 10 # bro wont see it coming part 2

@@ -7,7 +7,7 @@ Electrician Minigame Art:
 Music, Art:
     Ezekiel Lewis (DLab5)
 
-Assets not made by us: (You might need to open credits.txt to see the whole link)
+Assets not made by us: (See credits.txt for full links)
 all keyboard and mouse related images: Nicolae (XELU) Berbece, Public Domain CC0. Source: https://thoseawesomeguys.com/prompts/
 Starburst_Explosion, Splat_Stripe, Splat_Coffee: License: http://www.onlygfx.com/terms-of-use/ Source: https://www.onlygfx.com/6-starburst-explosion-comic-vector-png-transparent-svg/,
 https://www.onlygfx.com/hard-splatter-stripe-background-png-transparent/, https://www.onlygfx.com/4-coffee-splash-splatter-png-transparent/
@@ -23,3 +23,6 @@ Wrong by kuba liscensed Public Domain CC0: https://openclipart.org/detail/15469/
 Scroll by dear_theophilus liscensed Public Domain CC0: https://openclipart.org/detail/221940/scroll-icon
 7 Segment Font liscensed SIL OFL: https://torinak.com/font/7-segment
 Heart by Smileymensch liscensed GPL 3.0: https://opengameart.org/content/heart-0
+Guitar Fail by qubodup liscensed Public Domoain CC0 https://freesound.org/people/qubodup/sounds/191322/
+Wood (Used in Table) by JCW liscensed Public Domain CC0 https://opengameart.org/content/wood-texture-tiles
+Lose by suntemple liscensed Public Domain CC0 https://freesound.org/people/suntemple/sounds/253174/

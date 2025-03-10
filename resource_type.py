@@ -58,3 +58,7 @@ class ResourceType(enum.Enum):
     MUSIC_MAIN_MENU = 55
     MUSIC_BACKGROUND = 56
     SOUND_WIN = 57
+    SOUND_GUITAR_FAIL = 58
+    TEXTURE_TABLE_BG = 59
+    TEXTURE_WOOD = 60
+    SOUND_LOSE = 61
