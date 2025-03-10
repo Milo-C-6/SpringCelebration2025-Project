@@ -92,15 +92,17 @@ class MgMusic(Minigame):
         )
         # Draw the guitar neck
         pr.draw_rectangle(600,200,600,300,pr.Color(158,100,41,255))
-        for i in range(6):
+        pr.draw_circle(780,350,20,pr.BLACK)
+        pr.draw_circle(1020,350,20,pr.BLACK)
+        for i in range(6): # Frets
             pr.draw_line_ex(
-                pr.Vector2(600+i*120,200),
-                pr.Vector2(600+i*120,500),
+                pr.Vector2(600+i*120,190),
+                pr.Vector2(600+i*120,510),
                 5,
                 pr.Color(218,165,32,255)
             )
-        for i in range(6):
-            pr.draw_line_bezier(
+        for i in range(6): # Strings
+            pr.draw_line_ex(
                 pr.Vector2(590,200+i*60),
                 pr.Vector2(1210,200+i*60),
                 5,

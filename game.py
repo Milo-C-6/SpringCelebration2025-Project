@@ -17,7 +17,7 @@ class Game:
         # self.difficulty = 1
         self.current_minigame = None
         self.played_minigames = [None]
-        self.debug_minigame = MinigameIds.MGSEWING # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
+        self.debug_minigame = MinigameIds.MGMUSIC # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
         # When a debug minigame is set, itll skip most of the elevator transition
         self.playing = True # make sure to set this if you have a debug minigame!!!
         self.elevator_size = pr.Vector2(screen_width,screen_height)
