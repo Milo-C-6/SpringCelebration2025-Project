@@ -55,3 +55,6 @@ class ResourceType(enum.Enum):
     FONT_7SEGMENT = 52
     TEXTURE_HEART = 53
     TEXTURE_HEART_BROKE = 54
+    MUSIC_MAIN_MENU = 55
+    MUSIC_BACKGROUND = 56
+    SOUND_WIN = 57

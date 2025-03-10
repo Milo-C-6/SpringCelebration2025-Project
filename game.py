@@ -47,7 +47,7 @@ class Game:
 
         #i love having to scroll to the end of this to add images - Milo 3/7/25
         # Alt+Z to toggle Word Wrap, makes this MUCH easier - Milo 3/8/25
-        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png","assets/screen2.png","assets/Mouse_Left_Key_Light.png","assets/JobWare.png", "assets/Scroll.png","assets/7segment.ttf","assets/Heart.png","assets/Heart_Broken.png"]
+        assets = ["assets/Arrow_Up_Key_Light.png","assets/Arrow_Right_Key_Light.png","assets/Arrow_Down_Key_Light.png","assets/Arrow_Left_Key_Light.png","assets/Sewing_Monster_Doll.png","assets/Sewing_Monster_Doll_Complete.png","assets/Starburst_Explosion.png","assets/Powerwash_Gun.png","assets/Sidewalk.png","assets/Splat_1.png","assets/Splat_2.png","assets/Splat_Coffee.png","assets/Splat_Stripe.png","assets/Sparkles.png","assets/computer.png","assets/background.png","assets/electricity.png","assets/Plug.png","assets/wire.png","assets/screen1.png","assets/wire2.png","assets/connect_wire1.png","assets/connect_wire2.png","assets/Elevator.png","assets/Timer.png","assets/PCB.png","assets/Solder.png","assets/Solder_Iron.png","assets/LED_Off.png","assets/LED_On.png","assets/Check.png","assets/Important.png","assets/Wrong.png","assets/D_Key_Light.png","assets/F_Key_Light.png","assets/J_Key_Light.png","assets/K_Key_Light.png","assets/Sheet_Music_Transparent.png","assets/Guitar_1_3_7.mp3","assets/Guitar_2.mp3","assets/Guitar_4_6.mp3","assets/Guitar_5.mp3","assets/Guitar_8.mp3","assets/Guitar_9.mp3","assets/tape.png","assets/tapedWire.png","assets/lasttaskbg.png","assets/screen2.png","assets/Mouse_Left_Key_Light.png","assets/JobWare.png", "assets/Scroll.png","assets/7segment.ttf","assets/Heart.png","assets/Heart_Broken.png","assets/sounds/MainTheme.wav","assets/sounds/Background.wav","assets/sounds/ShortWin.wav"]
         iteration = 0
 
         for key in ResourceType:
@@ -55,6 +55,8 @@ class Game:
                 self.resources[key] = pr.load_font(assets[iteration])
             elif key.name[:5]=="SOUND":
                 self.resources[key] = pr.load_sound(assets[iteration])
+            elif key.name[:5]=="MUSIC":
+                self.resources[key] = pr.load_music_stream(assets[iteration])
             else:
                 image = pr.load_image(assets[iteration])
                 self.resources[key] = pr.load_texture_from_image(image)
@@ -76,6 +78,9 @@ class Game:
         )
         pr.end_texture_mode()
 
+        if not self.playing:
+            pr.play_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
+
     def update(self):
         if pr.is_mouse_button_pressed(pr.MOUSE_RIGHT_BUTTON):
             print(pr.get_mouse_position().x,pr.get_mouse_position().y)
@@ -86,6 +91,7 @@ class Game:
             elif self.lives_tick > 70:
                 self.life_offset = pr.Vector2(0,0)
                 self.lives_y += 8.5
+                pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],1)
                 if self.lives_tick == 90: 
                     self.lost_a_life = False
                     if self.lives == 0: 
@@ -96,10 +102,12 @@ class Game:
             elif self.lives_tick == 56: self.life_offset = pr.Vector2(0,0)
             self.lives_tick+=1
         if not self.playing:
-
+            pr.update_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
             if pr.check_collision_recs(pr.Rectangle(540,500,200,120),pr.Rectangle(pr.get_mouse_x(),pr.get_mouse_y(),2,2)):
                 pr.set_mouse_cursor(4)
                 if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON):
+                    pr.stop_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
+                    pr.play_music_stream(self.resources[ResourceType.MUSIC_BACKGROUND])
                     self.playing = True
                     pr.set_mouse_cursor(0)
             elif pr.check_collision_circles(pr.Vector2(1235,45),39,pr.get_mouse_position(),2):
@@ -125,6 +133,7 @@ class Game:
                 if self.title_angle >= 3:
                     self.direction = 0
         else:
+            pr.update_music_stream(self.resources[ResourceType.MUSIC_BACKGROUND])
             if self.transition_tick != 181:
                 if self.debug_minigame != None and self.transition_tick == 0:
                     self.transition_tick = 109
@@ -176,6 +185,7 @@ class Game:
                                 self.current_minigame = MgSolder(self.resources, self.screen_width, self.screen_height)
                             case MinigameIds.MGMUSIC.value:
                                 self.current_minigame = MgMusic(self.resources,self.screen_width,self.screen_height)
+                                pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],0.2)
                             case _:
                                 print("someone messed up")
                         self.text_size = 250
@@ -205,9 +215,12 @@ class Game:
                     self.transition_tick = -20
                     self.score += 1
                     self.lives_tick = 0
+                    pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],0.3)
                     if self.stopwatch_color == pr.RED:
                         self.lives-=1
                         self.lost_a_life = True
+                    else:
+                        pr.play_sound(self.resources[ResourceType.SOUND_WIN])
             
             if self.text_y_tick!=61:
                 self.text_pos_y-=15
@@ -313,7 +326,14 @@ class Game:
 
     def shutdown(self):
         for key in ResourceType:
-            pr.unload_texture(self.resources[key])
+            if key.name[:4]=="FONT":
+                pr.unload_font(self.resources[key])
+            elif key.name[:5]=="SOUND":
+                pr.unload_sound(self.resources[key])
+            elif key.name[:5]=="MUSIC":
+                pr.unload_music_stream(self.resources[key])
+            else:
+                pr.unload_texture(self.resources[key])
 
         pr.close_audio_device()
         
@@ -328,5 +348,7 @@ class Game:
         self.stopwatch_time = 7
         self.text_pos_y = self.screen_height//2
         self.text_size = 250 #40
+        pr.stop_music_stream(self.resources[ResourceType.MUSIC_BACKGROUND])
+        pr.play_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
 
         self.playing = False
