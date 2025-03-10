@@ -4,8 +4,8 @@ from resource_type import ResourceType
 from minigame_ids import MinigameIds
 
 class MgElectrician(Minigame):
-    def __init__(self, resources, screen_width, screen_height):
-        super().__init__(resources, screen_width, screen_width)
+    def __init__(self, resources, screen_width, screen_height, speed, max_time_multiplier):
+        super().__init__(resources, screen_width, screen_width, speed, max_time_multiplier)
         #Statics
         self.id = MinigameIds.MGELECTRICIAN
         self.instruction = "Fix issues!"
@@ -15,7 +15,7 @@ class MgElectrician(Minigame):
         #Ticks
         self.win = 0
         self.something_tick = 0
-        self.max_time = 14
+        self.max_time = 14*self.max_time_multiplier
         self.time_tick = 0
         #everything else
         self.plug_opacity = 0

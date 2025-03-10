@@ -4,8 +4,8 @@ from minigame_ids import MinigameIds
 from minigames.minigame import Minigame
 
 class MgMusic(Minigame):
-    def __init__(self, resources, screen_width, screen_height):
-        super().__init__(resources,screen_width,screen_height)
+    def __init__(self, resources, screen_width, screen_height, speed, max_time_multiplier):
+        super().__init__(resources,screen_width,screen_height, speed, max_time_multiplier)
         #Statics
         self.id = MinigameIds.MGMUSIC
         self.controls = [self.resources[ResourceType.TEXTURE_KEY_LEFT],self.resources[ResourceType.TEXTURE_KEY_DOWN],self.resources[ResourceType.TEXTURE_KEY_UP],self.resources[ResourceType.TEXTURE_KEY_RIGHT],self.resources[ResourceType.TEXTURE_KEY_D],self.resources[ResourceType.TEXTURE_KEY_F],self.resources[ResourceType.TEXTURE_KEY_J],self.resources[ResourceType.TEXTURE_KEY_K]]

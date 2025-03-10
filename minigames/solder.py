@@ -4,12 +4,12 @@ from minigame_ids import MinigameIds
 from minigames.minigame import Minigame
 
 class MgSolder(Minigame):
-    def __init__(self, resources, screen_width, screen_height):
-        super().__init__(resources, screen_width, screen_width)
+    def __init__(self, resources, screen_width, screen_height, speed, max_time_multiplier):
+        super().__init__(resources, screen_width, screen_width, speed, max_time_multiplier)
         #Static
         self.id = MinigameIds.MGSOLDER
-        self.max_time = 5
-        self.instruction = "Bind the wire and the PCB with solder!"
+        self.max_time = 5*self.max_time_multiplier
+        self.instruction = "Bind the wire and \nthe PCB with solder!"
         #Not static
         self.led_texutre = self.resources[ResourceType.TEXTURE_LED_OFF]
         self.iron_distance = pr.Vector2(0,-300)
@@ -25,10 +25,10 @@ class MgSolder(Minigame):
             self.solder_distance = pr.Vector2(-133,-80)
             if pr.check_collision_circles(
                 pr.get_mouse_position(),3,pr.Vector2(599,431), 10
-            ): self.top_solder_radius += 0.2
+            ): self.top_solder_radius += 0.2*self.speed
             elif pr.check_collision_circles(
                 pr.get_mouse_position(),3,pr.Vector2(599,582), 10
-            ): self.bottom_solder_radius += 0.2
+            ): self.bottom_solder_radius += 0.2*self.speed
 
         else:
             if self.top_solder_radius >= 9.8 and self.top_solder_radius <= 15.5:

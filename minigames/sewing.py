@@ -5,8 +5,8 @@ from minigame_ids import MinigameIds
 
 # Minigame Sewing, i love spending 5+ hours on one minigame, and the code ends up being super speghetti
 class MgSewing(Minigame):
-    def __init__(self, resources, screen_width, screen_height):
-        super().__init__(resources, screen_width, screen_width)
+    def __init__(self, resources, screen_width, screen_height, speed, max_time_multiplier):
+        super().__init__(resources, screen_width, screen_width, speed, max_time_multiplier)
         #Statics
         self.distance_x = (self.screen_width//2.45-self.screen_width//2.8)/2
         self.distance_y = (self.screen_width//3.5-self.screen_height//4.1)/2

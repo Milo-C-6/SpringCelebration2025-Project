@@ -13,8 +13,8 @@ class Game:
         self.resources = {}
         self.screen_width = screen_width
         self.screen_height = screen_height
-        # self.speed = 1 # sadly not implemented :(
-        # self.difficulty = 1
+        self.speed = 1
+        self.max_time_multiplier = 1
         self.current_minigame = None
         self.played_minigames = [None]
         self.debug_minigame = None # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
@@ -42,6 +42,7 @@ class Game:
         self.life_offset = pr.Vector2(0,0)
         self.lost_a_life = False
         self.game_end_score = 0
+        self.speed_up_y = -75
 
     def startup(self):
         pr.init_audio_device()
@@ -89,9 +90,13 @@ class Game:
         if self.lives_tick != 91:
             if self.lives_tick < 20:
                 self.lives_y -= 8.5
+                if self.score%3==0:
+                    self.speed_up_y +=3.75
             elif self.lives_tick > 70:
                 self.life_offset = pr.Vector2(0,0)
                 self.lives_y += 8.5
+                if self.score%3==0:
+                    self.speed_up_y -=3.75
                 pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],1)
                 if self.lives_tick == 90: 
                     self.lost_a_life = False
@@ -178,15 +183,15 @@ class Game:
 
                         match proposed_minigame: # I want current_minigame to be assigned a new Minigame class, and this does that I think, but I feel like there should be a better way...
                             case MinigameIds.MGSEWING.value:
-                                self.current_minigame = MgSewing(self.resources, self.screen_width, self.screen_height)
+                                self.current_minigame = MgSewing(self.resources, self.screen_width, self.screen_height,self.speed,self.max_time_multiplier)
                             case MinigameIds.MGPOWERWASH.value:
-                                self.current_minigame = MgPowerwash(self.resources, self.screen_width, self.screen_height)
+                                self.current_minigame = MgPowerwash(self.resources, self.screen_width, self.screen_height,self.speed,self.max_time_multiplier)
                             case MinigameIds.MGELECTRICIAN.value:
-                                self.current_minigame = MgElectrician(self.resources, self.screen_width, self.screen_height)
+                                self.current_minigame = MgElectrician(self.resources, self.screen_width, self.screen_height,self.speed,self.max_time_multiplier)
                             case MinigameIds.MGSOLDER.value:
-                                self.current_minigame = MgSolder(self.resources, self.screen_width, self.screen_height)
+                                self.current_minigame = MgSolder(self.resources, self.screen_width, self.screen_height,self.speed,self.max_time_multiplier)
                             case MinigameIds.MGMUSIC.value:
-                                self.current_minigame = MgMusic(self.resources,self.screen_width,self.screen_height)
+                                self.current_minigame = MgMusic(self.resources,self.screen_width,self.screen_height,self.speed,self.max_time_multiplier)
                                 pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],0.2)
                             case _:
                                 print("someone messed up")
@@ -220,6 +225,9 @@ class Game:
                     self.score += 1
                     self.lives_tick = 0
                     pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],0.3)
+                    if self.score%3==0:
+                        self.speed += 0.3
+                        self.max_time_multiplier *= 0.9
                     if self.stopwatch_color == pr.RED:
                         self.lives-=1
                         self.lost_a_life = True
@@ -258,6 +266,7 @@ class Game:
         if self.current_minigame != None:
             pr.draw_text(self.current_minigame.instruction,int(self.screen_width//2-(pr.measure_text(self.current_minigame.instruction,self.text_size)/2)),int(self.text_pos_y),self.text_size,pr.BLACK)
         if self.lives_tick != 91:
+            pr.draw_text("Speed up!",528,int(self.speed_up_y),48,pr.YELLOW) # might aswell put this in the lives tick right?
             for i in range(4):
                 if i+1 <= self.lives:
                     texture = self.resources[ResourceType.TEXTURE_HEART]
