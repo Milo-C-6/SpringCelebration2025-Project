@@ -68,3 +68,4 @@ class ResourceType(enum.Enum):
     TEXTURE_BGDONE = 65
     TEXTURE_BLOCK1 = 66
     TEXTURE_BLOCK2 = 67
+    TEXTURE_DUST = 68

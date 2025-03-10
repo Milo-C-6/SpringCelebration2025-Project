@@ -12,10 +12,15 @@ class MgConstruct(Minigame):
         self.instruction = "Build The House!"
         self.b1 = False
         self.b2 = True
+        self.bp1 = False
+        self.bp2 = False
         self.something_tick = 0
+        self.time_new_tick = 0
 
     def update(self):
         self.something_tick += 1
+        if self.bp2 == True:
+            self.time_new_tick += 1
 
     def render(self):
         pr.draw_texture_pro(
@@ -26,66 +31,88 @@ class MgConstruct(Minigame):
                 0,
                 pr.WHITE
             )
-        if pr.is_mouse_button_down and self.b1 == False:
+        if pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b1 == False:
             pr.draw_texture_ex(
                 self.resources[ResourceType.TEXTURE_BLOCK1],
-                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-250,-300)), #should be changed for scaling! if we still care for that
+                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-1200,-300)), #should be changed for scaling! if we still care for that
                 0,
                 1,
                 pr.WHITE
             )
-            if pr.is_mouse_button_released(0) and pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(340,0,300,300)):
-                pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_BLOCK1],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BLOCK1].width,self.resources[ResourceType.TEXTURE_BLOCK1].height),
-                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (pr.get_mouse_position().x,pr.get_mouse_position().y),
-                    .75,
-                    pr.WHITE
-                )
+            if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(340,0,300,300)):
                 self.b1 = True
                 self.b2 = False
+                self.bp1 = True
 
-        elif not pr.is_mouse_button_down and self.b1 == False:
+        if self.bp1 == True:
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_BLOCK1],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BLOCK1].width,self.resources[ResourceType.TEXTURE_BLOCK1].height),
+                pr.Rectangle(0,0,self.screen_width,self.screen_height/2),
+                (540,160),
+                1,
+                pr.WHITE
+            )
+
+        elif not pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b1 == False:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BLOCK1],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BLOCK1].width,self.resources[ResourceType.TEXTURE_BLOCK1].height),
                 pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (pr.get_mouse_position().x,pr.get_mouse_position().y),
+                (0,0),
                 0,
                 pr.WHITE
             )
-        
-        if pr.is_mouse_button_down and self.b2 == False:
+            ###SECOND BLOCK###
+        if pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b2 == False:
             pr.draw_texture_ex(
                 self.resources[ResourceType.TEXTURE_BLOCK2],
-                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-250,-300)), #should be changed for scaling! if we still care for that
+                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-300,-300)), #should be changed for scaling! if we still care for that
                 0,
                 1,
                 pr.WHITE
             )
-            if pr.is_mouse_button_released(0) and pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(640,0,300,300)):
-                pr.draw_texture_pro(
-                    self.resources[ResourceType.TEXTURE_BLOCK2],
-                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BLOCK2].width,self.resources[ResourceType.TEXTURE_BLOCK2].height),
-                    pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                    (pr.get_mouse_position().x,pr.get_mouse_position().y),
-                    .75,
-                    pr.WHITE
-                )
+            if pr.check_collision_recs(pr.Rectangle(pr.get_mouse_position().x,pr.get_mouse_position().y,1,1),pr.Rectangle(640,0,300,300)):
+                self.bp2 = True
                 self.b2 = True
                 self.win = True
 
-        elif not pr.is_mouse_button_down and self.b2 == False:
+        elif not pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b2 == False:
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_BLOCK2],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BLOCK2].width,self.resources[ResourceType.TEXTURE_BLOCK2].height),
+                pr.Rectangle(0,0,self.screen_width,self.screen_height/2),
+                (0,0),
+                0,
+                pr.WHITE
+            )
+        if self.bp2 == True:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BLOCK2],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BLOCK2].width,self.resources[ResourceType.TEXTURE_BLOCK2].height),
                 pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (pr.get_mouse_position().x,pr.get_mouse_position().y),
-                0,
+                (-500,210),
+                1,
                 pr.WHITE
             )
-        if self.win == True:
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_DUST],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_DUST].width,self.resources[ResourceType.TEXTURE_DUST].height),
+                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                (0,0),
+                1,
+                pr.WHITE
+            )
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_DUST],
+                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_DUST].width,self.resources[ResourceType.TEXTURE_DUST].height),
+                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
+                (0,0),
+                1,
+                pr.WHITE
+            )
+        
+        if self.win == True and self.time_new_tick >= 45:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BGDONE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BGDONE].width,self.resources[ResourceType.TEXTURE_BGDONE].height),
@@ -94,4 +121,5 @@ class MgConstruct(Minigame):
                 0,
                 pr.WHITE
             )
+        
 
