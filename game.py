@@ -26,7 +26,8 @@ class Game:
         self.door_width = 191
         self.transition = pr.load_render_texture(1280,720)
         self.stopwatch_color = pr.WHITE
-        self.stopwatch_time = 7
+        self.stopwatch_time = 7 # no clue why I called it "stopwatch", its a timer!!
+        self.stopwatch_time_text = "7"
         self.text_pos_y = self.screen_height//2
         self.text_size = 250 #40
         self.title_colors = [pr.Color(165, 203, 242,255),pr.Color(0, 255, 255,255),pr.Color(15, 255, 80,255),pr.Color(76, 187, 23,255),pr.Color(255, 234, 0,255),pr.Color(255, 191, 0,255),pr.Color(255, 49, 49,255)]
@@ -203,6 +204,8 @@ class Game:
             elif self.current_minigame != None:
                 self.current_minigame.update()
                 self.stopwatch_time = round(self.current_minigame.max_time-(pr.get_time()-self.current_minigame.time),2)
+                if self.stopwatch_time >= 0:
+                    self.stopwatch_time_text = str(self.stopwatch_time)
                 if self.current_minigame.win:
                     self.stopwatch_color = pr.GREEN
                 else:
@@ -239,7 +242,7 @@ class Game:
                 0,pr.WHITE
             )
 
-            pr.draw_text(str(self.stopwatch_time),50,590,50,self.stopwatch_color)
+            pr.draw_text(self.stopwatch_time_text,50,590,50,self.stopwatch_color)
 
 
         if self.transition_tick != 181:
