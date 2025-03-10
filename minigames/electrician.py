@@ -31,7 +31,7 @@ class MgElectrician(Minigame):
 
     def update(self):
         self.something_tick += 1
-        if self.something_tick >= 90:
+        if self.something_tick >= 75:
             self.task11 = False
         if self.Rbool:
             self.time_tick += 1
@@ -39,7 +39,7 @@ class MgElectrician(Minigame):
 
     def render(self):
         ##########Begining Scene
-        if self.something_tick <= 90 or self.task2 == True:
+        if self.something_tick <= 75 or self.task2 == True:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_HOUSE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE].width,self.resources[ResourceType.TEXTURE_HOUSE].height),
@@ -202,7 +202,7 @@ class MgElectrician(Minigame):
                 0,
                 pr.WHITE
             )
-            if self.time_tick >= 60:
+            if self.time_tick >= 45:
                 pr.draw_texture_pro(
                     self.resources[ResourceType.TEXTURE_HOUSE2],
                     pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE2].width,self.resources[ResourceType.TEXTURE_HOUSE2].height),
