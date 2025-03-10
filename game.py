@@ -43,6 +43,7 @@ class Game:
         self.lost_a_life = False
         self.game_end_score = 0
         self.speed_up_y = -75
+        self.play_size = 1
 
     def startup(self):
         pr.init_audio_device()
@@ -84,9 +85,6 @@ class Game:
             pr.play_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
 
     def update(self):
-        if pr.is_mouse_button_pressed(pr.MOUSE_RIGHT_BUTTON):
-            print(pr.get_mouse_position().x,pr.get_mouse_position().y)
-
         if self.lives_tick != 91:
             if self.lives_tick < 20:
                 self.lives_y -= 8.5
@@ -111,25 +109,30 @@ class Game:
             pr.update_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
             if pr.check_collision_recs(pr.Rectangle(520,480,240,140),pr.Rectangle(pr.get_mouse_x(),pr.get_mouse_y(),2,2)):
                 pr.set_mouse_cursor(4)
+                if self.play_size <= 1.1:
+                    self.play_size += 0.025
                 if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON):
                     pr.play_sound(self.resources[ResourceType.SOUND_BEGIN])
                     pr.stop_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
                     pr.play_music_stream(self.resources[ResourceType.MUSIC_BACKGROUND])
                     self.playing = True
                     pr.set_mouse_cursor(0)
-            elif pr.check_collision_circles(pr.Vector2(1235,45),39,pr.get_mouse_position(),2):
-                pr.set_mouse_cursor(4)
-                if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON):
-                    if self.credits: self.credits = False
-                    else: self.credits = True
-                    pr.set_mouse_cursor(0)
-            elif self.game_end_score > 1 and pr.check_collision_recs(pr.Rectangle(550,385,180,65),pr.Rectangle(pr.get_mouse_x(),pr.get_mouse_y(),2,2)):
-                pr.set_mouse_cursor(4)
-                if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON):
-                    self.game_end_score = 0
-                    pr.set_mouse_cursor(0)
             else:
-                pr.set_mouse_cursor(0)
+                if self.play_size >= 1:
+                    self.play_size -= 0.025
+                if pr.check_collision_circles(pr.Vector2(1235,45),39,pr.get_mouse_position(),2):
+                    pr.set_mouse_cursor(4)
+                    if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON):
+                        if self.credits: self.credits = False
+                        else: self.credits = True
+                        pr.set_mouse_cursor(0)
+                elif self.game_end_score > 1 and pr.check_collision_recs(pr.Rectangle(550,385,180,65),pr.Rectangle(pr.get_mouse_x(),pr.get_mouse_y(),2,2)):
+                    pr.set_mouse_cursor(4)
+                    if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON):
+                        self.game_end_score = 0
+                        pr.set_mouse_cursor(0)
+                else:
+                    pr.set_mouse_cursor(0)
 
             if self.direction == 0:
                 self.title_angle -= 0.03
@@ -305,10 +308,10 @@ class Game:
                     -i*self.title_angle,
                     self.title_colors[i]
                 )
-            pr.draw_rectangle(520,480,240,140,pr.BLUE)
-            pr.draw_rectangle_lines_ex(pr.Rectangle(520,480,240,140),5,pr.Color(56, 88, 138,255))
-            pr.draw_text("Play",556,510,80,pr.GREEN)
-            pr.draw_circle(1235,45,39,pr.Color(56, 88, 138,255))
+            pr.draw_rectangle(int(640-((240*self.play_size)/2)),480,int(240*self.play_size),int(140*self.play_size),pr.BLUE) #Play button
+            pr.draw_rectangle_lines_ex(pr.Rectangle(640-((240*self.play_size)/2),480,int(240*self.play_size),int(140*self.play_size)),5,pr.Color(56, 88, 138,255)) 
+            pr.draw_text("Play",int(640-((pr.measure_text("Play",int(80*self.play_size)))/2)),510,int(80*self.play_size),pr.GREEN)
+            pr.draw_circle(1235,45,39,pr.Color(56, 88, 138,255)) # Credits button
             pr.draw_circle(1235,45,35,pr.BLUE)
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_SCROLL],
@@ -362,6 +365,9 @@ class Game:
         self.stopwatch_time = 7
         self.text_pos_y = self.screen_height//2
         self.text_size = 250 #40
+        self.speed = 1
+        self.max_time_multiplier = 1
+        self.stopwatch_time_text = "7"
         pr.stop_music_stream(self.resources[ResourceType.MUSIC_BACKGROUND])
         pr.play_music_stream(self.resources[ResourceType.MUSIC_MAIN_MENU])
 
