@@ -62,3 +62,4 @@ class ResourceType(enum.Enum):
     TEXTURE_TABLE_BG = 59
     TEXTURE_WOOD = 60
     SOUND_LOSE = 61
+    TEXTURE_NEEDLE = 62

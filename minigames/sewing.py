@@ -36,7 +36,18 @@ class MgSewing(Minigame):
         self.direction = 0 # 0: Right, 1: Left
         self.starburst_opacity = 0
 
+        self.needle_width = 90
+        self.needle_angle = 0
+        self.needle_offset = 0
+
     def update(self):
+        if self.stich_end_x == 457:
+            self.needle_angle = 0
+            self.needle_width = 90
+        elif self.stich_end_x == 587:
+            self.needle_angle = 180
+        elif self.stich_end_x == 522 and self.needle_angle == 180:
+            self.needle_width = 265
         if self.stich_tick != 21:
             self.stich_tick+=1
             if self.stich_tick%5==0:
@@ -100,6 +111,14 @@ class MgSewing(Minigame):
         )
         if self.side == 1:
             pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.BLACK)
+        pr.draw_texture_pro(
+            self.resources[ResourceType.TEXTURE_NEEDLE],
+            pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_NEEDLE].width,self.resources[ResourceType.TEXTURE_NEEDLE].height),
+            pr.Rectangle(self.stich_end_x,self.stich_end_y,self.resources[ResourceType.TEXTURE_NEEDLE].width,17),
+            pr.Vector2(30,8.5),
+            self.needle_angle,
+            pr.WHITE
+        )
 
         if self.win:
             pr.draw_rectangle(0,0,1280,720,pr.Color(255,191,0,self.starburst_opacity))
@@ -133,6 +152,23 @@ class MgSewing(Minigame):
         )
         if self.side == 0:
             pr.draw_line_ex(pr.Vector2(int(self.screen_width//2.45),int(self.stich_line_y)),pr.Vector2(int(self.stich_end_x),int(self.stich_end_y)),self.screen_height*(6/720),pr.BLACK)
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_NEEDLE],
+                pr.Rectangle(0,0,self.needle_width,self.resources[ResourceType.TEXTURE_NEEDLE].height),
+                pr.Rectangle(self.stich_end_x,self.stich_end_y,self.needle_width,17),
+                pr.Vector2(30,8.5),
+                self.needle_angle,
+                pr.WHITE
+            )
+        elif self.needle_angle == 180:
+            pr.draw_texture_pro(
+                self.resources[ResourceType.TEXTURE_NEEDLE],
+                pr.Rectangle(90,0,self.resources[ResourceType.TEXTURE_NEEDLE].width-90,self.resources[ResourceType.TEXTURE_NEEDLE].height),
+                pr.Rectangle(self.stich_end_x-95,self.stich_end_y,self.resources[ResourceType.TEXTURE_NEEDLE].width-60,17),
+                pr.Vector2(30,8.5),
+                self.needle_angle,
+                pr.WHITE
+            )
 
         #these stupid stiches were such a pain to make
         if self.stiches > 0:
