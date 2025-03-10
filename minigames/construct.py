@@ -4,20 +4,15 @@ from resource_type import ResourceType
 from minigame_ids import MinigameIds
 # So far all the stuff that will be consitent with every minigame, but I imagine that will soon enough.
 
-class MGCONSTRUCT(Minigame):
+class MgConstruct(Minigame):
     def __init__(self, resources, screen_width, screen_height, speed, max_time_multiplier):
-        self.resources = resources
-        self.screen_width = screen_width
-        self.screen_height = screen_height
-        self.speed = speed
-        self.max_time_multiplier = max_time_multiplier
+        super().__init__(resources, screen_width, screen_width, speed, max_time_multiplier)
         self.id = MinigameIds.MGCONSTRUCT
-        self.win = False
-        self.time = 0
         self.max_time = 7*max_time_multiplier
         self.instruction = "Build The House!"
         self.b1 = False
         self.b2 = True
+        self.something_tick = 0
 
     def update(self):
         self.something_tick += 1

@@ -7,7 +7,6 @@ from minigames.electrician import MgElectrician
 from minigames.powerwash import MgPowerwash
 from minigames.solder import MgSolder
 from minigames.music import MgMusic
-from minigames.construct import MGCONSTRUCT
 
 class Game:
     def __init__(self, screen_width, screen_height):
@@ -18,9 +17,9 @@ class Game:
         self.max_time_multiplier = 1
         self.current_minigame = None
         self.played_minigames = [None]
-        self.debug_minigame = None # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
+        self.debug_minigame = MinigameIds.MGCONSTRUCT # Replace this with the minigame you wanna debug, so if you wanna debug sewing you would set it to "MinigameIds.MGSEWING"
         # When a debug minigame is set, itll skip most of the elevator transition
-        self.playing = False # make sure to set this if you have a debug minigame!!!
+        self.playing = True # make sure to set this if you have a debug minigame!!!
         self.elevator_size = pr.Vector2(screen_width,screen_height)
         self.transition_tick = 0 # max 181, dont edit if you already have a debug minigame set
         self.text_y_tick = 61
@@ -197,6 +196,8 @@ class Game:
                             case MinigameIds.MGMUSIC.value:
                                 self.current_minigame = MgMusic(self.resources,self.screen_width,self.screen_height,self.speed,self.max_time_multiplier)
                                 pr.set_music_volume(self.resources[ResourceType.MUSIC_BACKGROUND],0.2)
+                            case MinigameIds.MGCONSTRUCT.value:
+                                self.current_minigame = MgConstruct(self.resources, self.screen_width, self.screen_height, self.speed, self.max_time_multiplier)
                             case _:
                                 print("someone messed up")
                         self.text_size = 250
