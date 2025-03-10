@@ -185,7 +185,6 @@ class Game:
 
                         while proposed_minigame in self.played_minigames:
                             proposed_minigame = random.randint(1,7) # second value is number of completed minigames
-
                         match proposed_minigame: # I want current_minigame to be assigned a new Minigame class, and this does that I think, but I feel like there should be a better way...
                             case MinigameIds.MGSEWING.value:
                                 self.current_minigame = MgSewing(self.resources, self.screen_width, self.screen_height,self.speed,self.max_time_multiplier)
