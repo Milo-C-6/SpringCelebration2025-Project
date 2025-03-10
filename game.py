@@ -7,6 +7,7 @@ from minigames.electrician import MgElectrician
 from minigames.powerwash import MgPowerwash
 from minigames.solder import MgSolder
 from minigames.music import MgMusic
+from minigames.construct import MGCONSTRUCT
 
 class Game:
     def __init__(self, screen_width, screen_height):
