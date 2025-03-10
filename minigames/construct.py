@@ -20,7 +20,7 @@ class Minigame:
         self.b2 = True
 
     def update(self):
-        pass
+        self.something_tick += 1
 
     def render(self):
         pr.draw_texture_pro(
