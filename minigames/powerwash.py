@@ -71,7 +71,7 @@ class MgPowerwash(Minigame):
                     self.resources[splat.texture].width*splat.size,self.resources[splat.texture].height*splat.size
                 ),
                 1,
-                pr.BLANK
+                pr.YELLOW
             )
 
         pr.draw_texture_ex(
