@@ -220,6 +220,8 @@ class Game:
                 self.stopwatch_time = round(self.current_minigame.max_time-(pr.get_time()-self.current_minigame.time),2)
                 if self.stopwatch_time >= 0:
                     self.stopwatch_time_text = str(self.stopwatch_time)
+                else:
+                    self.stopwatch_time_text = "0.00"
                 if self.current_minigame.win:
                     self.stopwatch_color = pr.GREEN
                 else:
