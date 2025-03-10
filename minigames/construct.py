@@ -16,11 +16,14 @@ class MgConstruct(Minigame):
         self.bp2 = False
         self.something_tick = 0
         self.time_new_tick = 0
+        self.wait_tick = 0
 
     def update(self):
         self.something_tick += 1
         if self.bp2 == True:
             self.time_new_tick += 1
+        if self.b1 == True:
+            self.wait_tick += 1
 
     def render(self):
         pr.draw_texture_pro(
@@ -64,7 +67,7 @@ class MgConstruct(Minigame):
                 pr.WHITE
             )
             ###SECOND BLOCK###
-        if pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b2 == False:
+        if pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b2 == False and self.wait_tick >= 45:
             pr.draw_texture_ex(
                 self.resources[ResourceType.TEXTURE_BLOCK2],
                 pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-300,-300)), #should be changed for scaling! if we still care for that
@@ -112,7 +115,7 @@ class MgConstruct(Minigame):
                 pr.WHITE
             )
         
-        if self.win == True and self.time_new_tick >= 45:
+        if self.win == True and self.time_new_tick >= 60:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BGDONE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BGDONE].width,self.resources[ResourceType.TEXTURE_BGDONE].height),
