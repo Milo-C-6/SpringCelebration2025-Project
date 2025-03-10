@@ -9,7 +9,7 @@ class MgMusic(Minigame):
         #Statics
         self.id = MinigameIds.MGMUSIC
         self.controls = [self.resources[ResourceType.TEXTURE_KEY_LEFT],self.resources[ResourceType.TEXTURE_KEY_DOWN],self.resources[ResourceType.TEXTURE_KEY_UP],self.resources[ResourceType.TEXTURE_KEY_RIGHT],self.resources[ResourceType.TEXTURE_KEY_D],self.resources[ResourceType.TEXTURE_KEY_F],self.resources[ResourceType.TEXTURE_KEY_J],self.resources[ResourceType.TEXTURE_KEY_K]]
-        self.instruction = "Play a riff!"
+        self.instruction = "Play the riff!"
         #Not Statics
         self.notes = 1 # max 9
         self.note_sequence = [0,1,0,2,4,2,0,1,0]

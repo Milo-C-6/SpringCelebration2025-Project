@@ -338,12 +338,15 @@ class Game:
                 pr.draw_text("Cool!",604,400,30,pr.WHITE)
 
             if self.credits:
-                pr.draw_rectangle(100,50,1080,660,pr.BLUE)
-                pr.draw_rectangle_lines_ex(pr.Rectangle(100,50,1080,660),5,pr.Color(56, 88, 138,255))
+                pr.draw_rectangle(100,50,1080,720,pr.BLUE)
+                pr.draw_rectangle_lines_ex(pr.Rectangle(100,50,1080,720),5,pr.Color(56, 88, 138,255))
                 pr.draw_text("Credits:",110,60,32,pr.WHITE)
                 for i in range(len(self.credits_txt)):
                     if i>9:
-                        pr.draw_text(self.credits_txt[i],130,250+i*15,12,pr.WHITE)
+                        if i == 11: # it definitely gets cut off by the square, I swear...
+                            pr.draw_text(self.credits_txt[i][:165],130,250+i*15,12,pr.WHITE)
+                        else:
+                            pr.draw_text(self.credits_txt[i],130,250+i*15,12,pr.WHITE)
                     else:
                         pr.draw_text(self.credits_txt[i],130,100+i*30,28,pr.WHITE)
 

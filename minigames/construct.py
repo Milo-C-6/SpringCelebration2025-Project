@@ -3,7 +3,7 @@ from minigames.minigame import Minigame
 from resource_type import ResourceType
 from minigame_ids import MinigameIds
 # So far all the stuff that will be consitent with every minigame, but I imagine that will soon enough.
-
+#gm
 class MgConstruct(Minigame):
     def __init__(self, resources, screen_width, screen_height, speed, max_time_multiplier):
         super().__init__(resources, screen_width, screen_width, speed, max_time_multiplier)
@@ -98,24 +98,17 @@ class MgConstruct(Minigame):
                 1,
                 pr.WHITE
             )
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_DUST],
-                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_DUST].width,self.resources[ResourceType.TEXTURE_DUST].height),
-                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (0,0),
-                1,
-                pr.WHITE
-            )
-            pr.draw_texture_pro(
-                self.resources[ResourceType.TEXTURE_DUST],
-                pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_DUST].width,self.resources[ResourceType.TEXTURE_DUST].height),
-                pr.Rectangle(0,0,self.screen_width,self.screen_height/1.75),
-                (0,0),
-                1,
-                pr.WHITE
-            )
+            for i in range(-1,1): # Efficiency!
+                pr.draw_texture_pro(
+                    self.resources[ResourceType.TEXTURE_DUST],
+                    pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_DUST].width,self.resources[ResourceType.TEXTURE_DUST].height),
+                    pr.Rectangle(0,0,self.screen_width*i,self.screen_height/1.75),
+                    (0,0),
+                    1,
+                    pr.WHITE
+                )
         
-        if self.win == True and self.time_new_tick >= 60:
+        if self.win and self.time_new_tick >= 60:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BGDONE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BGDONE].width,self.resources[ResourceType.TEXTURE_BGDONE].height),
