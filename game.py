@@ -155,7 +155,7 @@ class Game:
                 if self.transition_tick < 0:
                     # print(print(self.elevator_size.y))
                     # print(1/0) intentionally causing errors is a real good way to get values :D . Python debugger? Never heard of her
-                    self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(-51.37,-28.9)) #fresh value, guess where it came from?
+                    self.elevator_size = pr.vector2_add(self.elevator_size,pr.Vector2(-51.37,-28.9))
                     self.door_width += 16
                     self.stopwatch_color = pr.WHITE
                 # i wish i knew about texture mode before, im going to crash out
