@@ -1,8 +1,7 @@
 import pyray as pr
-import asyncio
 from game import Game
 
-async def main():
+def main():
 
     screen_width = 1280
     screen_height = 720
@@ -25,11 +24,10 @@ async def main():
         current_game.render()
 
         pr.end_drawing()
-        await asyncio.sleep(0)
 
     pr.close_window()
     current_game.shutdown()
 
 
 if __name__ == '__main__':
-    asyncio.run(main())
+    main()
