@@ -18,7 +18,7 @@ class MgArchaeology(Minigame):
         self.sparkle_frames = [10,0]
 
     def update(self):
-        if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON) and not self.win:
+        if pr.is_mouse_button_pressed(pr.MOUSE_LEFT_BUTTON) and not self.win and pr.get_mouse_y() > 404:
             pr.play_sound(self.resources[ResourceType.SOUND_DIG])
             self.holes_pos.append(pr.get_mouse_position())
             if pr.check_collision_recs(self.artifact_rect,pr.Rectangle(pr.get_mouse_x(),pr.get_mouse_y(),2,2)):
