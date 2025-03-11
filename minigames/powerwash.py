@@ -65,14 +65,6 @@ class MgPowerwash(Minigame):
                 splat.size,
                 splat.color
             )
-            pr.draw_rectangle_lines_ex(
-                pr.Rectangle(
-                    splat.position.x,splat.position.y,
-                    self.resources[splat.texture].width*splat.size,self.resources[splat.texture].height*splat.size
-                ),
-                1,
-                pr.YELLOW
-            )
 
         pr.draw_texture_ex(
             self.resources[ResourceType.TEXTURE_POWERWASH_GUN],

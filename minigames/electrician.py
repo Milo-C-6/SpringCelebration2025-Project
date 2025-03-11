@@ -66,7 +66,7 @@ class MgElectrician(Minigame):
             )
 
         #task 1 and 2 of 3
-        if self.something_tick >= 90 and self.task11 == False and self.task2 == True:
+        if self.something_tick >= 75 and self.task11 == False and self.task2 == True:
                 pr.draw_texture_pro(
                     self.resources[ResourceType.TEXTURE_WIRE2],
                     pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_WIRE2].width,self.resources[ResourceType.TEXTURE_WIRE2].height),
@@ -202,7 +202,7 @@ class MgElectrician(Minigame):
                 0,
                 pr.WHITE
             )
-            if self.time_tick >= 45:
+            if self.time_tick >= 40:
                 pr.draw_texture_pro(
                     self.resources[ResourceType.TEXTURE_HOUSE2],
                     pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_HOUSE2].width,self.resources[ResourceType.TEXTURE_HOUSE2].height),

@@ -70,7 +70,7 @@ class MgConstruct(Minigame):
         if pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b2 == False and self.wait_tick >= 45:
             pr.draw_texture_ex(
                 self.resources[ResourceType.TEXTURE_BLOCK2],
-                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-300,-300)), #should be changed for scaling! if we still care for that
+                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-175,-350)), #should be changed for scaling! if we still care for that
                 0,
                 1,
                 pr.WHITE
@@ -108,7 +108,7 @@ class MgConstruct(Minigame):
                     pr.WHITE
                 )
         
-        if self.win and self.time_new_tick >= 60:
+        if self.win and self.time_new_tick >= 40:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BGDONE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BGDONE].width,self.resources[ResourceType.TEXTURE_BGDONE].height),
