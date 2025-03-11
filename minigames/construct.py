@@ -70,7 +70,7 @@ class MgConstruct(Minigame):
         if pr.is_mouse_button_down(pr.MOUSE_LEFT_BUTTON) and self.b2 == False and self.wait_tick >= 45:
             pr.draw_texture_ex(
                 self.resources[ResourceType.TEXTURE_BLOCK2],
-                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-300,-300)), #should be changed for scaling! if we still care for that
+                pr.vector2_add(pr.get_mouse_position(),pr.Vector2(-200,-350)), #should be changed for scaling! if we still care for that
                 0,
                 1,
                 pr.WHITE
