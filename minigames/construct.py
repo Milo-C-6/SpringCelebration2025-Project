@@ -108,7 +108,7 @@ class MgConstruct(Minigame):
                     pr.WHITE
                 )
         
-        if self.win and self.time_new_tick >= 60:
+        if self.win and self.time_new_tick >= 40:
             pr.draw_texture_pro(
                 self.resources[ResourceType.TEXTURE_BGDONE],
                 pr.Rectangle(0,0,self.resources[ResourceType.TEXTURE_BGDONE].width,self.resources[ResourceType.TEXTURE_BGDONE].height),
